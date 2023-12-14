@@ -1,0 +1,60 @@
+[gd_scene load_steps=11 format=3 uid="uid://dm7actshoylqt"]
+
+[ext_resource type="PackedScene" uid="uid://bu3f3m3tnr00x" path="res://scenes/starter_ground.tscn" id="1_b2gyt"]
+[ext_resource type="Script" path="res://scenes/initialize.gd" id="1_edds8"]
+[ext_resource type="PackedScene" uid="uid://njx823gyk04n" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_hand.tscn" id="2_6smd6"]
+[ext_resource type="PackedScene" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="3_no41g"]
+[ext_resource type="PackedScene" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="4_7jo4u"]
+[ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="5_le5nd"]
+[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="6_rvgso"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3xkvy"]
+
+[sub_resource type="Sky" id="Sky_d31j8"]
+sky_material = SubResource("ProceduralSkyMaterial_3xkvy")
+
+[sub_resource type="Environment" id="Environment_yneem"]
+background_mode = 2
+sky = SubResource("Sky_d31j8")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_edds8")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_yneem")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
+
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54292, 0.462771)
+
+[node name="LeftController" type="XRController3D" parent="XROrigin3D"]
+tracker = &"left_hand"
+
+[node name="LeftHand" parent="XROrigin3D/LeftController" instance=ExtResource("2_6smd6")]
+
+[node name="MovementDirect" parent="XROrigin3D/LeftController" instance=ExtResource("3_no41g")]
+strafe = true
+
+[node name="MovementTurn" parent="XROrigin3D/LeftController" instance=ExtResource("4_7jo4u")]
+turn_mode = 2
+
+[node name="RightController" type="XRController3D" parent="XROrigin3D"]
+tracker = &"right_hand"
+
+[node name="RightHand" parent="XROrigin3D/RightController" instance=ExtResource("5_le5nd")]
+
+[node name="MovementDirect" parent="XROrigin3D/RightController" instance=ExtResource("3_no41g")]
+
+[node name="MovementTurn" parent="XROrigin3D/RightController" instance=ExtResource("4_7jo4u")]
+turn_mode = 2
+
+[node name="PlayerBody" parent="XROrigin3D" instance=ExtResource("6_rvgso")]
+
+[node name="Ground" parent="." instance=ExtResource("1_b2gyt")]

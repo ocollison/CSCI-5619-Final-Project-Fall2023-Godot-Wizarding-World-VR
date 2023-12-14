@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://bu3f3m3tnr00x"]
+
+[ext_resource type="Texture2D" uid="uid://03jtsaxnu862" path="res://textures/holodeck.png" id="1_2dc5n"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_a8whk"]
+size = Vector2(100, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ym5vi"]
+shading_mode = 2
+albedo_color = Color(0.882353, 0.882353, 0.882353, 1)
+albedo_texture = ExtResource("1_2dc5n")
+uv1_scale = Vector3(100, 100, 1)
+texture_filter = 5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_trsr2"]
+size = Vector3(100, 1, 100)
+
+[node name="Ground" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_a8whk")
+surface_material_override/0 = SubResource("StandardMaterial3D_ym5vi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_trsr2")
