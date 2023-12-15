@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://dm7actshoylqt"]
+[gd_scene load_steps=13 format=3 uid="uid://dm7actshoylqt"]
 
 [ext_resource type="PackedScene" uid="uid://bu3f3m3tnr00x" path="res://scenes/starter_ground.tscn" id="1_b2gyt"]
 [ext_resource type="Script" path="res://scenes/initialize.gd" id="1_edds8"]
 [ext_resource type="PackedScene" uid="uid://njx823gyk04n" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_hand.tscn" id="2_6smd6"]
 [ext_resource type="PackedScene" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="3_no41g"]
 [ext_resource type="PackedScene" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="4_7jo4u"]
+[ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="5_e4v8g"]
 [ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="5_le5nd"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="6_rvgso"]
 
@@ -19,6 +20,8 @@ sky = SubResource("Sky_d31j8")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="BoxMesh" id="BoxMesh_7gk5e"]
+
 [node name="Main" type="Node3D"]
 script = ExtResource("1_edds8")
 
@@ -30,6 +33,7 @@ transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75
 shadow_enabled = true
 
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.294312, 0)
 
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54292, 0.462771)
@@ -45,6 +49,10 @@ strafe = true
 [node name="MovementTurn" parent="XROrigin3D/LeftController" instance=ExtResource("4_7jo4u")]
 turn_mode = 2
 
+[node name="LeftFunctionPointer" parent="XROrigin3D/LeftController" instance=ExtResource("5_e4v8g")]
+unique_name_in_owner = true
+visible = false
+
 [node name="RightController" type="XRController3D" parent="XROrigin3D"]
 tracker = &"right_hand"
 
@@ -55,6 +63,36 @@ tracker = &"right_hand"
 [node name="MovementTurn" parent="XROrigin3D/RightController" instance=ExtResource("4_7jo4u")]
 turn_mode = 2
 
+[node name="RightFunctionPointer" parent="XROrigin3D/RightController" instance=ExtResource("5_e4v8g")]
+unique_name_in_owner = true
+visible = false
+
 [node name="PlayerBody" parent="XROrigin3D" instance=ExtResource("6_rvgso")]
 
 [node name="Ground" parent="." instance=ExtResource("1_b2gyt")]
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+transform = Transform3D(0.582146, 0, 0, 0, 0.759544, 0, 0, 0, 0.458052, 0, 1.07134, -0.100047)
+visible = false
+operation = 1
+radius = 0.793252
+height = 0.86407
+sides = 64
+smooth_faces = false
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="CSGCylinder3D"]
+transform = Transform3D(1.67852, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.403547)
+operation = 2
+mesh = SubResource("BoxMesh_7gk5e")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CSGCylinder3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0197059)
+operation = 2
+radius = 0.793252
+height = 0.888061
+sides = 64
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCylinder3D"]
+transform = Transform3D(1.14659, 0, 0, 0, 1.14659, 0, 0, 0, 1.14659, 0.67946, -0.134168, -0.103492)
+operation = 2
+size = Vector3(0.436228, 0.988814, 0.236954)
