@@ -72,7 +72,8 @@ visible = false
 [node name="Menu" parent="XROrigin3D" instance=ExtResource("10_nostw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.879859, -1.89985)
 visible = false
-screen_size = Vector2(1, 0.9)
+screen_size = Vector2(2, 1.5)
+enabled = false
 scene = ExtResource("9_ldcmq")
 viewport_size = Vector2(2048, 1024)
 

@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://gqdeaixdv2ti"]
+[gd_scene load_steps=5 format=3 uid="uid://gqdeaixdv2ti"]
 
 [ext_resource type="Script" path="res://scripts/ui.gd" id="1_mpfrs"]
+[ext_resource type="Script" path="res://scripts/canvas.gd" id="2_sfvpx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2rla5"]
 bg_color = Color(0.270588, 0.447059, 0.87451, 0.768627)
@@ -86,19 +87,43 @@ text = "The Voice Button"
 [node name="Other" type="TabBar" parent="MarginContainer/TabContainer"]
 visible = false
 layout_mode = 2
+script = ExtResource("2_sfvpx")
 
-[node name="Button" type="Button" parent="MarginContainer/TabContainer/Other"]
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/TabContainer/Other"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -48.5
-offset_top = -15.5
-offset_right = 48.5
-offset_bottom = 15.5
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.83
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 72
-text = "TBD Button"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Other"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.444
+anchor_right = 1.0
+anchor_bottom = 0.548
+offset_left = -1.0
+offset_top = 201.9
+offset_right = -1.0
+offset_bottom = 235.3
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Clear" type="Button" parent="MarginContainer/TabContainer/Other/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Clear"
+
+[node name="Cast Spell" type="Button" parent="MarginContainer/TabContainer/Other/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Cast Spell"
+
+[node name="Polygon2D" type="Polygon2D" parent="MarginContainer/TabContainer/Other"]
+position = Vector2(497, 200)
+
+[node name="Line2D" type="Line2D" parent="MarginContainer/TabContainer/Other/Polygon2D"]
+
+[connection signal="pressed" from="MarginContainer/TabContainer/Other/VBoxContainer/Clear" to="MarginContainer/TabContainer/Other" method="_on_clear_pressed"]
+[connection signal="pressed" from="MarginContainer/TabContainer/Other/VBoxContainer/Cast Spell" to="MarginContainer/TabContainer/Other" method="_on_cast_spell_pressed"]
