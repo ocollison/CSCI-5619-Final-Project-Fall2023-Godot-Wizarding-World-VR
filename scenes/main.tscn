@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://dm7actshoylqt"]
+[gd_scene load_steps=15 format=3 uid="uid://dm7actshoylqt"]
 
 [ext_resource type="PackedScene" uid="uid://bu3f3m3tnr00x" path="res://scenes/starter_ground.tscn" id="1_b2gyt"]
 [ext_resource type="Script" path="res://scenes/initialize.gd" id="1_edds8"]
 [ext_resource type="PackedScene" uid="uid://njx823gyk04n" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_hand.tscn" id="2_6smd6"]
+[ext_resource type="Script" path="res://scripts/XROrigin3D.cs" id="2_o87p0"]
 [ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="3_no41g"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="4_7jo4u"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="5_5udqi"]
@@ -34,6 +35,7 @@ shadow_enabled = true
 
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.232659, 0)
+script = ExtResource("2_o87p0")
 
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54292, 0.462771)
@@ -76,6 +78,7 @@ screen_size = Vector2(2, 1.5)
 enabled = false
 scene = ExtResource("9_ldcmq")
 viewport_size = Vector2(2048, 1024)
+input_keyboard = false
 
 [node name="Ground" parent="." instance=ExtResource("1_b2gyt")]
 
