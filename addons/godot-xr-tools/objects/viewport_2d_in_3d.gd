@@ -510,3 +510,21 @@ func _update_render() -> void:
 		# Force a redraw of the viewport
 		if Engine.is_editor_hint() or update_mode == UpdateMode.UPDATE_ONCE:
 			$Viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
+
+
+func _on_left_controller_button_pressed(name):
+	if name == "menu_button":
+		if self.is_visible() == true:
+			self.enabled = false
+			self.visible = false
+			%LeftPointer.visible = false
+			%RightPointer.visible = false
+			%RightPointer.enabled = false
+			%LeftPointer.enabled = false
+		else:
+			self.visible = true
+			self.enabled = true
+			%LeftPointer.visible = true
+			%RightPointer.visible = true
+			%RightPointer.enabled = true
+			%LeftPointer.enabled = true

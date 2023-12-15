@@ -1,12 +1,15 @@
-[gd_scene load_steps=11 format=3 uid="uid://dm7actshoylqt"]
+[gd_scene load_steps=14 format=3 uid="uid://dm7actshoylqt"]
 
 [ext_resource type="PackedScene" uid="uid://bu3f3m3tnr00x" path="res://scenes/starter_ground.tscn" id="1_b2gyt"]
 [ext_resource type="Script" path="res://scenes/initialize.gd" id="1_edds8"]
 [ext_resource type="PackedScene" uid="uid://njx823gyk04n" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_hand.tscn" id="2_6smd6"]
-[ext_resource type="PackedScene" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="3_no41g"]
-[ext_resource type="PackedScene" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="4_7jo4u"]
+[ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="3_no41g"]
+[ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="4_7jo4u"]
+[ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="5_5udqi"]
 [ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="5_le5nd"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="6_rvgso"]
+[ext_resource type="PackedScene" uid="uid://gqdeaixdv2ti" path="res://scenes/ui.tscn" id="9_ldcmq"]
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="10_nostw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3xkvy"]
 
@@ -30,6 +33,7 @@ transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75
 shadow_enabled = true
 
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.232659, 0)
 
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54292, 0.462771)
@@ -45,6 +49,10 @@ strafe = true
 [node name="MovementTurn" parent="XROrigin3D/LeftController" instance=ExtResource("4_7jo4u")]
 turn_mode = 2
 
+[node name="LeftPointer" parent="XROrigin3D/LeftController" instance=ExtResource("5_5udqi")]
+unique_name_in_owner = true
+visible = false
+
 [node name="RightController" type="XRController3D" parent="XROrigin3D"]
 tracker = &"right_hand"
 
@@ -55,6 +63,19 @@ tracker = &"right_hand"
 [node name="MovementTurn" parent="XROrigin3D/RightController" instance=ExtResource("4_7jo4u")]
 turn_mode = 2
 
+[node name="RightPointer" parent="XROrigin3D/RightController" instance=ExtResource("5_5udqi")]
+unique_name_in_owner = true
+visible = false
+
 [node name="PlayerBody" parent="XROrigin3D" instance=ExtResource("6_rvgso")]
 
+[node name="Menu" parent="XROrigin3D" instance=ExtResource("10_nostw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.879859, -1.89985)
+visible = false
+screen_size = Vector2(1, 0.9)
+scene = ExtResource("9_ldcmq")
+viewport_size = Vector2(2048, 1024)
+
 [node name="Ground" parent="." instance=ExtResource("1_b2gyt")]
+
+[connection signal="button_pressed" from="XROrigin3D/LeftController" to="XROrigin3D/Menu" method="_on_left_controller_button_pressed"]
