@@ -1,15 +1,18 @@
-[gd_scene load_steps=14 format=3 uid="uid://dm7actshoylqt"]
+[gd_scene load_steps=30 format=3 uid="uid://dm7actshoylqt"]
 
 [ext_resource type="PackedScene" uid="uid://bu3f3m3tnr00x" path="res://scenes/starter_ground.tscn" id="1_b2gyt"]
 [ext_resource type="Script" path="res://scenes/initialize.gd" id="1_edds8"]
 [ext_resource type="PackedScene" uid="uid://njx823gyk04n" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_hand.tscn" id="2_6smd6"]
+[ext_resource type="Script" path="res://scripts/MagicHandler.gd" id="2_qa2te"]
 [ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="3_no41g"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="4_7jo4u"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="5_5udqi"]
 [ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="5_le5nd"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="6_rvgso"]
+[ext_resource type="PackedScene" uid="uid://02g3or503roy" path="res://scenes/fire_emit.tscn" id="8_tptlw"]
 [ext_resource type="PackedScene" uid="uid://gqdeaixdv2ti" path="res://scenes/ui.tscn" id="9_ldcmq"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="10_nostw"]
+[ext_resource type="PackedScene" uid="uid://bd7e0iiv3p18r" path="res://scenes/fire.tscn" id="11_uojyy"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3xkvy"]
 
@@ -21,6 +24,79 @@ background_mode = 2
 sky = SubResource("Sky_d31j8")
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_f2c7p"]
+offsets = PackedFloat32Array(0, 0.634146, 0.95935, 0.96748, 0.97561, 0.98374, 0.99187, 1)
+colors = PackedColorArray(0.945098, 0.803922, 0, 1, 0.905882, 0.101961, 0, 1, 0.913005, 0.138231, 3.50042e-08, 1, 0.765949, 0.447825, 7.70092e-07, 1, 0.91799, 0.16362, 5.95071e-08, 1, 0.927961, 0.214399, 1.08513e-07, 1, 0.91158, 0.130977, 2.80033e-08, 1, 1, 0.201097, 0.069626, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_vk6ca"]
+gradient = SubResource("Gradient_f2c7p")
+
+[sub_resource type="Curve" id="Curve_qv7xx"]
+max_value = 100.0
+_data = [Vector2(0.0844156, 89.4737), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_c488l"]
+curve = SubResource("Curve_qv7xx")
+
+[sub_resource type="Curve" id="Curve_3c8mu"]
+_data = [Vector2(0, 0.421053), 0.0, 0.0, 0, 0, Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(0.48052, 0.831579), 0.0, 0.0, 0, 0, Vector2(0.668831, 0.410526), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_4p5p3"]
+curve = SubResource("Curve_3c8mu")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ehd1i"]
+particle_flag_rotate_y = true
+emission_shape = 2
+emission_sphere_radius = 0.07
+angular_velocity_min = 50.0
+angular_velocity_max = 50.0
+gravity = Vector3(0, 0, 0)
+tangential_accel_min = -0.4
+damping_curve = SubResource("CurveTexture_c488l")
+scale_max = 2.15
+scale_curve = SubResource("CurveTexture_4p5p3")
+color_ramp = SubResource("GradientTexture1D_vk6ca")
+hue_variation_max = 0.11
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6basm"]
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_n370m"]
+material = SubResource("StandardMaterial3D_6basm")
+size = Vector3(0.02, 0.02, 0.02)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sfk87"]
+particle_flag_rotate_y = true
+emission_shape = 2
+emission_sphere_radius = 0.07
+angular_velocity_min = 50.0
+angular_velocity_max = 50.0
+gravity = Vector3(0, 0, 0)
+tangential_accel_min = -0.4
+damping_curve = SubResource("CurveTexture_c488l")
+scale_max = 2.15
+scale_curve = SubResource("CurveTexture_4p5p3")
+color_ramp = SubResource("GradientTexture1D_vk6ca")
+hue_variation_max = 0.11
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_yyebv"]
+material = SubResource("StandardMaterial3D_6basm")
+size = Vector3(0.02, 0.02, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6glrw"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_fiebv"]
+points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_edds8")
@@ -35,6 +111,9 @@ shadow_enabled = true
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.232659, 0)
 
+[node name="MagicHandler" type="Node3D" parent="XROrigin3D"]
+script = ExtResource("2_qa2te")
+
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54292, 0.462771)
 
@@ -42,6 +121,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54292, 0.462771)
 tracker = &"left_hand"
 
 [node name="LeftHand" parent="XROrigin3D/LeftController" instance=ExtResource("2_6smd6")]
+
+[node name="MagicState" type="Node3D" parent="XROrigin3D/LeftController/LeftHand"]
+
+[node name="Fire" parent="XROrigin3D/LeftController/LeftHand/MagicState" instance=ExtResource("11_uojyy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0319276, -0.0478053, 0.0868755)
+
+[node name="MagicEmission" type="Node3D" parent="XROrigin3D/LeftController/LeftHand"]
+
+[node name="FireEmitting" parent="XROrigin3D/LeftController/LeftHand/MagicEmission" instance=ExtResource("8_tptlw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0249046, 0, -0.0360124)
+process_material = SubResource("ParticleProcessMaterial_ehd1i")
+draw_pass_1 = SubResource("BoxMesh_n370m")
 
 [node name="MovementDirect" parent="XROrigin3D/LeftController" instance=ExtResource("3_no41g")]
 strafe = true
@@ -57,6 +148,18 @@ visible = false
 tracker = &"right_hand"
 
 [node name="RightHand" parent="XROrigin3D/RightController" instance=ExtResource("5_le5nd")]
+
+[node name="MagicSate" type="Node3D" parent="XROrigin3D/RightController/RightHand"]
+
+[node name="Fire" parent="XROrigin3D/RightController/RightHand/MagicSate" instance=ExtResource("11_uojyy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.025224, -0.0612765, 0.0961006)
+
+[node name="MagicEmission" type="Node3D" parent="XROrigin3D/RightController/RightHand"]
+
+[node name="FireEmitting" parent="XROrigin3D/RightController/RightHand/MagicEmission" instance=ExtResource("8_tptlw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0286572, -0.0425362, -0.0288508)
+process_material = SubResource("ParticleProcessMaterial_sfk87")
+draw_pass_1 = SubResource("BoxMesh_yyebv")
 
 [node name="MovementDirect" parent="XROrigin3D/RightController" instance=ExtResource("3_no41g")]
 
@@ -79,4 +182,20 @@ viewport_size = Vector2(2048, 1024)
 
 [node name="Ground" parent="." instance=ExtResource("1_b2gyt")]
 
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.554505, 10.4365, -3.85094)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+mesh = SubResource("BoxMesh_6glrw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("ConvexPolygonShape3D_fiebv")
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="RigidBody3D"]
+size = Vector3(1.02295, 1.01466, 1.02814)
+
+[connection signal="button_pressed" from="XROrigin3D/LeftController" to="XROrigin3D/MagicHandler" method="_on_left_controller_button_pressed"]
 [connection signal="button_pressed" from="XROrigin3D/LeftController" to="XROrigin3D/Menu" method="_on_left_controller_button_pressed"]
+[connection signal="button_released" from="XROrigin3D/LeftController" to="XROrigin3D/MagicHandler" method="_on_left_controller_button_released"]
+[connection signal="button_pressed" from="XROrigin3D/RightController" to="XROrigin3D/MagicHandler" method="_on_right_controller_button_pressed"]
+[connection signal="button_released" from="XROrigin3D/RightController" to="XROrigin3D/MagicHandler" method="_on_right_controller_button_released"]
