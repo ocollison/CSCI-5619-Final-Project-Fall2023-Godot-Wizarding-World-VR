@@ -8,13 +8,25 @@ extends Node3D
 @onready var right_portal_instance = null
 @onready var left_portal_instance = null
 
+@onready var left_fire = $"../LeftController/LeftHand/MagicEmission/LeftFireSpell/Flames"
+@onready var right_fire = $"../RightController/RightHand/MagicEmission/RightFireSpell/Flames"
+
+@onready var left_ice = $"../LeftController/LeftHand/MagicEmission/left_ice_spell"
+@onready var right_ice = $"../RightController/RightHand/MagicEmission/right_ice_spell"
+
 @onready var spell 
 
 @onready var main = $"../.."
 
+@onready var ice_spell
+
+@onready var lefty = $"../LeftController/LeftHand"
+@onready var righty = $"../RightController/RightHand"
+
+var left_direction
+var right_direction
 
 func _ready():
-	
 	StateManager.state_changed.connect(spell_casted)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -22,17 +34,21 @@ func _process(delta):
 	
 	#particle tuning so they emit the right way
 	var left_controller_basis = $"../LeftController/LeftHand".global_transform.basis
-	var left_direction = -left_controller_basis.z
+	left_direction = -left_controller_basis.z
 	left_direction = left_direction.normalized() * 9.8
+	
 	left_particles.get_process_material().gravity = left_direction 
 	left_lightning_magic.get_process_material().gravity = left_direction 
+	left_fire.get_process_material().gravity = left_direction 
 #Right Controller tuning
 	var right_controller_basis = $"../RightController/RightHand".global_transform.basis
-	var right_direction = -right_controller_basis.z
+	right_direction = -right_controller_basis.z
 	right_direction = right_direction.normalized() * 9.8
+	
+	
 	right_particles.get_process_material().gravity = right_direction 
 	right_lightning_magic.get_process_material().gravity = right_direction 
-
+	right_fire.get_process_material().gravity = right_direction 
 func spell_casted():
 	var spell = StateManager.spell
 	set_spell_state(spell)
@@ -53,8 +69,8 @@ func _on_left_controller_button_pressed(name):
 		var state = StateManager.spell
 		match state:
 			"fire":
-				left_particles.emitting = true
-			"lightning":
+				left_fire.emitting = true
+			"ice":
 				left_lightning_magic.emitting = true
 			"grab":
 				pass
@@ -71,8 +87,8 @@ func _on_right_controller_button_pressed(name):
 		var state = StateManager.spell
 		match state:
 			"fire":
-				right_particles.emitting = true
-			"lightning":
+				right_fire.emitting = true
+			"ice":
 				right_lightning_magic.emitting = true
 			"grab":
 				pass
@@ -88,8 +104,8 @@ func _on_left_controller_button_released(name):
 		var state = StateManager.spell
 		match state:
 			"fire":
-				left_particles.emitting = false
-			"lightning":
+				left_fire.emitting = false
+			"ice":
 				left_lightning_magic.emitting = false
 			"grab":
 				pass
@@ -110,15 +126,22 @@ func _on_left_controller_button_released(name):
 				
 				left_portal_instance.global_transform.origin = translation
 			"normal":
-				pass
+				var ice
+				ice = load("res://scenes/ice_spell.tscn")
+				
+				ice_spell = ice.instantiate()
+				main.add_child(ice_spell)
+				ice_spell.set_global_position(lefty.get_global_position())
+				
+				#ice_spell.move(left_direction, 3)
 
 func _on_right_controller_button_released(name):
 	if name == "trigger_click":
 		var state = StateManager.spell
 		match state:
 			"fire":
-				right_particles.emitting = false
-			"lightning":
+				right_fire.emitting = false
+			"ice":
 				right_lightning_magic.emitting = false
 			"grab":
 				pass

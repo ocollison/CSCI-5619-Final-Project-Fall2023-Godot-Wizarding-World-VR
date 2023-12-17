@@ -32,7 +32,7 @@ func clean_text(json_text):
 
 func _on_speech_recognizer_on_final_result(finalResults):
 	finalResults = clean_text(finalResults)
-	var special_words = ["fire", "lightning", "teleport", "shoot", "grab"]
+	var special_words = ["fire", "ice", "teleport", "shoot", "grab"]
 	
 	for word in special_words:
 		if finalResults.find(word) != -1:

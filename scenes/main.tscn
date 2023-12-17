@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://dm7actshoylqt"]
+[gd_scene load_steps=62 format=3 uid="uid://dm7actshoylqt"]
 
 [ext_resource type="PackedScene" uid="uid://bu3f3m3tnr00x" path="res://scenes/starter_ground.tscn" id="1_b2gyt"]
 [ext_resource type="Script" path="res://scenes/initialize.gd" id="1_edds8"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dc5qss5ypaxxk" path="res://scenes/lightning_emit.tscn" id="9_jxat8"]
 [ext_resource type="PackedScene" uid="uid://d2mp0kj78daub" path="res://scenes/ui.tscn" id="9_ldcmq"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="10_nostw"]
+[ext_resource type="PackedScene" uid="uid://byg4v1g7vct56" path="res://scenes/fire_spell.tscn" id="10_pne3v"]
 [ext_resource type="PackedScene" uid="uid://bi3gojmlv8v5v" path="res://scenes/fire.tscn" id="11_uojyy"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3xkvy"]
@@ -51,6 +52,83 @@ point_count = 5
 [sub_resource type="CurveTexture" id="CurveTexture_4p5p3"]
 curve = SubResource("Curve_3c8mu")
 
+[sub_resource type="Curve" id="Curve_8haw4"]
+_data = [Vector2(0.012987, 0), 0.0, 0.0, 0, 0, Vector2(0.902597, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_lj318"]
+curve = SubResource("Curve_8haw4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yvlq0"]
+particle_flag_rotate_y = true
+emission_shape = 2
+emission_sphere_radius = 0.07
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, 0, 0)
+tangential_accel_min = 3.0
+tangential_accel_max = 3.0
+tangential_accel_curve = SubResource("CurveTexture_lj318")
+damping_curve = SubResource("CurveTexture_c488l")
+scale_curve = SubResource("CurveTexture_4p5p3")
+color_ramp = SubResource("GradientTexture1D_vk6ca")
+hue_variation_max = 0.11
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6basm"]
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_ndveh"]
+material = SubResource("StandardMaterial3D_6basm")
+size = Vector3(0.02, 0.02, 0.02)
+
+[sub_resource type="GDScript" id="GDScript_rhwd6"]
+script/source = "extends GPUParticles3D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	#get_matching_spell()
+	pass
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+#Function that matches the magic state user is in with the actual spell to be emitted
+func get_matching_spell():
+	var name = self.name
+	for spell in get_tree().get_nodes_in_group(\"Spell\"):
+		if spell.name.begins_with(name):
+			var path = spell.get_path() 
+			print(path)
+			return path
+	return \"\"
+
+
+"
+
+[sub_resource type="Gradient" id="Gradient_obkl3"]
+offsets = PackedFloat32Array(0, 0.634146, 0.95935, 0.96748, 0.97561, 0.98374, 0.99187, 1)
+colors = PackedColorArray(0.945098, 0.803922, 0, 1, 0.905882, 0.101961, 0, 1, 0.913005, 0.138231, 3.50042e-08, 1, 0.765949, 0.447825, 7.70092e-07, 1, 0.91799, 0.16362, 5.95071e-08, 1, 0.927961, 0.214399, 1.08513e-07, 1, 0.91158, 0.130977, 2.80033e-08, 1, 1, 0.201097, 0.069626, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cjeid"]
+gradient = SubResource("Gradient_obkl3")
+
+[sub_resource type="Curve" id="Curve_v2oj5"]
+max_value = 100.0
+_data = [Vector2(0.0844156, 89.4737), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_gek10"]
+curve = SubResource("Curve_v2oj5")
+
+[sub_resource type="Curve" id="Curve_a8173"]
+_data = [Vector2(0, 0.421053), 0.0, 0.0, 0, 0, Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(0.48052, 0.831579), 0.0, 0.0, 0, 0, Vector2(0.668831, 0.410526), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_vnxoo"]
+curve = SubResource("Curve_a8173")
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ehd1i"]
 particle_flag_rotate_y = true
 emission_shape = 2
@@ -59,21 +137,21 @@ angular_velocity_min = 50.0
 angular_velocity_max = 50.0
 gravity = Vector3(0, 0, 0)
 tangential_accel_min = -0.4
-damping_curve = SubResource("CurveTexture_c488l")
+damping_curve = SubResource("CurveTexture_gek10")
 scale_max = 2.15
-scale_curve = SubResource("CurveTexture_4p5p3")
-color_ramp = SubResource("GradientTexture1D_vk6ca")
+scale_curve = SubResource("CurveTexture_vnxoo")
+color_ramp = SubResource("GradientTexture1D_cjeid")
 hue_variation_max = 0.11
 collision_mode = 1
 collision_friction = 0.0
 collision_bounce = 0.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6basm"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q8b5h"]
 vertex_color_use_as_albedo = true
 vertex_color_is_srgb = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_n370m"]
-material = SubResource("StandardMaterial3D_6basm")
+material = SubResource("StandardMaterial3D_q8b5h")
 size = Vector3(0.02, 0.02, 0.02)
 
 [sub_resource type="Gradient" id="Gradient_00vu6"]
@@ -127,6 +205,50 @@ bottom_radius = 0.003
 height = 0.1
 radial_segments = 16
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dju2n"]
+particle_flag_rotate_y = true
+emission_shape = 2
+emission_sphere_radius = 0.07
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, 0, 0)
+tangential_accel_min = 3.0
+tangential_accel_max = 3.0
+tangential_accel_curve = SubResource("CurveTexture_lj318")
+damping_curve = SubResource("CurveTexture_c488l")
+scale_curve = SubResource("CurveTexture_4p5p3")
+color_ramp = SubResource("GradientTexture1D_vk6ca")
+hue_variation_max = 0.11
+
+[sub_resource type="BoxMesh" id="BoxMesh_isc6e"]
+material = SubResource("StandardMaterial3D_6basm")
+size = Vector3(0.02, 0.02, 0.02)
+
+[sub_resource type="GDScript" id="GDScript_mdv0a"]
+script/source = "extends GPUParticles3D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	#get_matching_spell()
+	pass
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+#Function that matches the magic state user is in with the actual spell to be emitted
+func get_matching_spell():
+	var name = self.name
+	for spell in get_tree().get_nodes_in_group(\"Spell\"):
+		if spell.name.begins_with(name):
+			var path = spell.get_path() 
+			print(path)
+			return path
+	return \"\"
+
+
+"
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sfk87"]
 particle_flag_rotate_y = true
 emission_shape = 2
@@ -135,17 +257,17 @@ angular_velocity_min = 50.0
 angular_velocity_max = 50.0
 gravity = Vector3(0, 0, 0)
 tangential_accel_min = -0.4
-damping_curve = SubResource("CurveTexture_c488l")
+damping_curve = SubResource("CurveTexture_gek10")
 scale_max = 2.15
-scale_curve = SubResource("CurveTexture_4p5p3")
-color_ramp = SubResource("GradientTexture1D_vk6ca")
+scale_curve = SubResource("CurveTexture_vnxoo")
+color_ramp = SubResource("GradientTexture1D_cjeid")
 hue_variation_max = 0.11
 collision_mode = 1
 collision_friction = 0.0
 collision_bounce = 0.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_yyebv"]
-material = SubResource("StandardMaterial3D_6basm")
+material = SubResource("StandardMaterial3D_q8b5h")
 size = Vector3(0.02, 0.02, 0.02)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bifli"]
@@ -210,10 +332,13 @@ tracker = &"left_hand"
 
 [node name="LeftFire" parent="XROrigin3D/LeftController/LeftHand/MagicState" groups=["State"] instance=ExtResource("11_uojyy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0319276, -0.0478053, 0.0868755)
-script = ExtResource("6_ukry3")
+process_material = SubResource("ParticleProcessMaterial_yvlq0")
+draw_pass_1 = SubResource("BoxMesh_ndveh")
+script = SubResource("GDScript_rhwd6")
 
-[node name="LeftLightning" parent="XROrigin3D/LeftController/LeftHand/MagicState" groups=["State"] instance=ExtResource("7_t5n83")]
+[node name="LeftIce" parent="XROrigin3D/LeftController/LeftHand/MagicState" groups=["State"] instance=ExtResource("7_t5n83")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0319276, -0.0478053, 0.0868755)
+visible = false
 script = ExtResource("6_ukry3")
 
 [node name="MagicEmission" type="Node3D" parent="XROrigin3D/LeftController/LeftHand"]
@@ -228,6 +353,8 @@ draw_pass_1 = SubResource("BoxMesh_n370m")
 emitting = false
 process_material = SubResource("ParticleProcessMaterial_uuj0r")
 draw_pass_1 = SubResource("CylinderMesh_f73f1")
+
+[node name="LeftFireSpell" parent="XROrigin3D/LeftController/LeftHand/MagicEmission" instance=ExtResource("10_pne3v")]
 
 [node name="MovementDirect" parent="XROrigin3D/LeftController" instance=ExtResource("3_no41g")]
 strafe = true
@@ -248,7 +375,9 @@ tracker = &"right_hand"
 
 [node name="RightFire" parent="XROrigin3D/RightController/RightHand/MagicSate" groups=["State"] instance=ExtResource("11_uojyy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.025224, -0.0612765, 0.0961006)
-script = ExtResource("6_ukry3")
+process_material = SubResource("ParticleProcessMaterial_dju2n")
+draw_pass_1 = SubResource("BoxMesh_isc6e")
+script = SubResource("GDScript_mdv0a")
 
 [node name="RightLightning" parent="XROrigin3D/RightController/RightHand/MagicSate" groups=["State"] instance=ExtResource("7_t5n83")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.025224, -0.0612765, 0.0961006)
@@ -267,6 +396,8 @@ transform = Transform3D(1, -3.87294e-05, 1.91512e-05, 3.87294e-05, 1, 2.95774e-0
 emitting = false
 process_material = SubResource("ParticleProcessMaterial_bifli")
 draw_pass_1 = SubResource("CylinderMesh_mp0gv")
+
+[node name="RightFireSpell" parent="XROrigin3D/RightController/RightHand/MagicEmission" instance=ExtResource("10_pne3v")]
 
 [node name="MovementDirect" parent="XROrigin3D/RightController" instance=ExtResource("3_no41g")]
 
