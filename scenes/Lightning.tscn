@@ -1,8 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://bi3gojmlv8v5v"]
+[gd_scene load_steps=12 format=3 uid="uid://bd7e0iiv3p18r"]
 
 [sub_resource type="Gradient" id="Gradient_f2c7p"]
-offsets = PackedFloat32Array(0, 0.634146, 0.95935, 0.96748, 0.97561, 0.98374, 0.99187, 1)
-colors = PackedColorArray(0.945098, 0.803922, 0, 1, 0.905882, 0.101961, 0, 1, 0.913005, 0.138231, 3.50042e-08, 1, 0.765949, 0.447825, 7.70092e-07, 1, 0.91799, 0.16362, 5.95071e-08, 1, 0.927961, 0.214399, 1.08513e-07, 1, 0.91158, 0.130977, 2.80033e-08, 1, 1, 0.201097, 0.069626, 1)
+offsets = PackedFloat32Array(0.309091, 0.590909, 1)
+colors = PackedColorArray(0.117647, 0.980392, 1, 1, 0, 0, 0.913725, 1, 0.400284, 0.00202929, 0.731111, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_vk6ca"]
 gradient = SubResource("Gradient_f2c7p")
@@ -29,7 +29,7 @@ point_count = 2
 [sub_resource type="CurveTexture" id="CurveTexture_lj318"]
 curve = SubResource("Curve_8haw4")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3v3nx"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_l36o0"]
 particle_flag_rotate_y = true
 emission_shape = 2
 emission_sphere_radius = 0.07
@@ -41,22 +41,21 @@ tangential_accel_curve = SubResource("CurveTexture_lj318")
 damping_curve = SubResource("CurveTexture_c488l")
 scale_curve = SubResource("CurveTexture_4p5p3")
 color_ramp = SubResource("GradientTexture1D_vk6ca")
-hue_variation_max = 0.11
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6basm"]
 vertex_color_use_as_albedo = true
 vertex_color_is_srgb = true
 
-[sub_resource type="BoxMesh" id="BoxMesh_4kw1e"]
+[sub_resource type="BoxMesh" id="BoxMesh_3ea5j"]
 material = SubResource("StandardMaterial3D_6basm")
 size = Vector3(0.02, 0.02, 0.02)
 
-[node name="FireStanding" type="GPUParticles3D"]
+[node name="LightningStanding" type="GPUParticles3D"]
 emitting = false
 amount = 50
 lifetime = 0.2
 speed_scale = 0.4
 randomness = 1.0
 visibility_aabb = AABB(-0.122834, -0.258052, -0.104995, 0.245668, 0.448721, 0.20999)
-process_material = SubResource("ParticleProcessMaterial_3v3nx")
-draw_pass_1 = SubResource("BoxMesh_4kw1e")
+process_material = SubResource("ParticleProcessMaterial_l36o0")
+draw_pass_1 = SubResource("BoxMesh_3ea5j")

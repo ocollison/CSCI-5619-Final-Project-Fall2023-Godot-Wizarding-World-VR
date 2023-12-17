@@ -8,9 +8,11 @@ public partial class SpeechUIManager : Node
 	[Export] Label partialResultText;
 	[Export] Label finalResultText;
 	[Export] SpeechRecognizer speechRecognizer;
-
+	[Signal]
+	public delegate void SpellCastEventHandler(string newSpell);
 	private string partialResult;
 	private string finalResult;
+	private string spell = "null";
 
 	public override void _Ready()
 	{
@@ -29,16 +31,16 @@ public partial class SpeechUIManager : Node
 				finalResult = speechRecognizer.StopSpeechRecoginition();
 			}
 		};
+
 		speechRecognizer.OnPartialResult += (partialResult) =>
 		{
 			partialResultText.Text = partialResult;
 		};
 		speechRecognizer.OnFinalResult += (finalResult) =>
 		{
-			finalResultText.Text = finalResult;
-			OnStopSpeechRecognition();
 			string final = ExtractText(finalResult);
-			GD.Print(final);
+			finalResultText.Text = final;
+			OnStopSpeechRecognition();
 		};
 	}
 
@@ -68,4 +70,26 @@ public partial class SpeechUIManager : Node
 		// Return the matched text 
 		 return match.Groups[1].Value; 
 	}
+	private void _on_speech_recognizer_on_final_result(string finalResults)
+	{
+		string[] specialWords = {"fire", "lighting", "teleport", "shoot", "grab"};
+		
+		foreach (string word in specialWords)
+		{
+			if (finalResults.Contains(word)) 
+			{
+				spell = word;
+				//GD.Print(spell);
+				//EmitSignal(nameof(SpellCast), wor);
+				//CallDeferred("emit_signal", "SpellCast");
+				return;
+			}
+		}
+		//GD.Print("No special ability found in string");
+	}
+	public string Spell
+	{
+		get { return spell; }
+	}
 }
+

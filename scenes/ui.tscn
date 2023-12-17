@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://gqdeaixdv2ti"]
+[gd_scene load_steps=6 format=3 uid="uid://d2mp0kj78daub"]
 
 [ext_resource type="Script" path="res://scripts/ui.gd" id="1_mpfrs"]
 [ext_resource type="PackedScene" uid="uid://bxcosvmfin7xb" path="res://scenes/speech_recognizer_demo.tscn" id="2_rgxpi"]
