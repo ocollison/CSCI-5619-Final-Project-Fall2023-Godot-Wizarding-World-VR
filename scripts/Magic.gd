@@ -1,9 +1,8 @@
 extends XRController3D
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -27,3 +26,6 @@ func _on_button_pressed(button_name:String):
 		await get_tree().create_timer(5.0).timeout
 		if instance != null:
 			instance.queue_free()
+
+
+	
