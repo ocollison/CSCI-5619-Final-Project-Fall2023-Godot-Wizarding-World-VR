@@ -32,22 +32,29 @@ func _process(delta):
 		for object in objects:
 			if result["collider_id"] == object.get_instance_id():
 				self.pointed_object = object
+			else:
+				self.pointed_object = null
 
 	else:
 		self.scale.z = 100
 		self.position.z = -50
+		self.pointed_object = null
+		
 	if self.grabbed_object:
-		print("grabbed")
-		# self.grabbed_object.transform = self.global_transform * self.previous_transform.inverse() * self.grabbed_object.transform
+		
+		self.grabbed_object.transform = $%RightController.global_transform * self.previous_transform.affine_inverse() * self.grabbed_object.transform
+		
 		for grabby in grabbed_object.get_children():
 			grabby.scale *=  ($%LeftController.global_position.distance_to($%RightController.global_position))/old_dist
 	old_dist = $%LeftController.global_position.distance_to($%RightController.global_position)
-	self.previous_transform = self.global_transform
+	self.previous_transform = $%RightController.global_transform
 
 func _on_right_controller_button_pressed(button_name:String):
 	if button_name == 'trigger_click':
 		if pointed_object != null:
+			print("grabbed")
 			self.grabbed_object = self.pointed_object
+			# $%RightController.add_child(self.pointed_object)
 
 
 func _on_right_controller_button_released(button_name: String) -> void:
