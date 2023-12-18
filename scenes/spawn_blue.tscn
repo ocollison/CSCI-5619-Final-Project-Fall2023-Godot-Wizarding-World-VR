@@ -1,0 +1,53 @@
+[gd_scene load_steps=11 format=3 uid="uid://cpq7n4oahmg0a"]
+
+[ext_resource type="PackedScene" uid="uid://02g3or503roy" path="res://scenes/fire_emit.tscn" id="1_15ii5"]
+
+[sub_resource type="Gradient" id="Gradient_apeqb"]
+offsets = PackedFloat32Array(0, 0.634146, 0.834646, 0.874016, 0.96748)
+colors = PackedColorArray(0.437068, 0.880858, 1, 1, 0.203872, 1.86747e-05, 0.805194, 1, 0, 0.380179, 0.61143, 1, 0.226118, 0.562865, 0.716053, 1, 0.87146, 0.000478997, 0.845573, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_o6dsi"]
+gradient = SubResource("Gradient_apeqb")
+
+[sub_resource type="Curve" id="Curve_srutn"]
+max_value = 100.0
+_data = [Vector2(0.0844156, 89.4737), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ajbrs"]
+curve = SubResource("Curve_srutn")
+
+[sub_resource type="Curve" id="Curve_pnd41"]
+_data = [Vector2(0, 0.421053), 0.0, 0.0, 0, 0, Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(0.48052, 0.831579), 0.0, 0.0, 0, 0, Vector2(0.668831, 0.410526), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_ngjnn"]
+curve = SubResource("Curve_pnd41")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1t5d4"]
+emission_shape = 2
+emission_sphere_radius = 0.07
+angular_velocity_min = 50.0
+angular_velocity_max = 50.0
+gravity = Vector3(0, 3, 0)
+tangential_accel_max = 4.0
+damping_curve = SubResource("CurveTexture_ajbrs")
+scale_max = 2.15
+scale_curve = SubResource("CurveTexture_ngjnn")
+color_ramp = SubResource("GradientTexture1D_o6dsi")
+hue_variation_max = 0.11
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fxy0k"]
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_s6jfg"]
+material = SubResource("StandardMaterial3D_fxy0k")
+size = Vector3(0.02, 0.02, 0.02)
+
+[node name="SpawnBlue" type="Marker3D"]
+
+[node name="FireEmitting" parent="." instance=ExtResource("1_15ii5")]
+amount = 500
+process_material = SubResource("ParticleProcessMaterial_1t5d4")
+draw_pass_1 = SubResource("BoxMesh_s6jfg")

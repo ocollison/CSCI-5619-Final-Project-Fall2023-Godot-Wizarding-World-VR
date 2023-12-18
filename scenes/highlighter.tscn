@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://gafhc005b5dn"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_a5g5l"]
+flip_faces = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6th2f"]
+shading_mode = 0
+albedo_color = Color(1, 1, 0, 1)
+
+[node name="Highlighter" type="MeshInstance3D"]
+transform = Transform3D(1.05834, 0, 0, 0, 1.05834, 0, 0, 0, 1.05834, 0, 0, 0)
+mesh = SubResource("BoxMesh_a5g5l")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_6th2f")

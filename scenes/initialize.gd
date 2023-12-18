@@ -10,7 +10,7 @@ func _ready():
 		# Turn off v-sync!
 		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 
-		# Change our main viewport to output to the HMD
+		# Change our main viewport to output to the MD
 		get_viewport().use_xr = true
 	else:
 		print("OpenXR not initialized, please check if your headset is connected")

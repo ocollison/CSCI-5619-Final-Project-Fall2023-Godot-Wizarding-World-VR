@@ -1,0 +1,54 @@
+[gd_scene load_steps=11 format=3 uid="uid://ck203tc1lbal1"]
+
+[ext_resource type="PackedScene" uid="uid://02g3or503roy" path="res://scenes/fire_emit.tscn" id="1_c4j31"]
+
+[sub_resource type="Gradient" id="Gradient_f2c7p"]
+offsets = PackedFloat32Array(0, 0.634146, 0.95935, 0.96748, 0.97561, 0.98374, 0.99187, 1)
+colors = PackedColorArray(0.945098, 0, 0, 1, 0.905882, 0.101961, 0, 1, 0.913005, 0.138231, 3.50042e-08, 1, 0.765949, 0.447825, 7.70092e-07, 1, 0.91799, 0.16362, 5.95071e-08, 1, 0.927961, 0.214399, 1.08513e-07, 1, 0.91158, 0.130977, 2.80033e-08, 1, 1, 0.201097, 0.069626, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_otjce"]
+gradient = SubResource("Gradient_f2c7p")
+
+[sub_resource type="Curve" id="Curve_qv7xx"]
+max_value = 100.0
+_data = [Vector2(0.0844156, 89.4737), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_rqlw7"]
+curve = SubResource("Curve_qv7xx")
+
+[sub_resource type="Curve" id="Curve_3c8mu"]
+_data = [Vector2(0, 0.421053), 0.0, 0.0, 0, 0, Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(0.48052, 0.831579), 0.0, 0.0, 0, 0, Vector2(0.668831, 0.410526), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_sr8j1"]
+curve = SubResource("Curve_3c8mu")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8vgbj"]
+emission_shape = 2
+emission_sphere_radius = 0.07
+angular_velocity_min = 50.0
+angular_velocity_max = 50.0
+gravity = Vector3(0, 3, 0)
+tangential_accel_max = 4.0
+damping_curve = SubResource("CurveTexture_rqlw7")
+scale_max = 2.15
+scale_curve = SubResource("CurveTexture_sr8j1")
+color_ramp = SubResource("GradientTexture1D_otjce")
+hue_variation_max = 0.11
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_apr0t"]
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_o8g4s"]
+material = SubResource("StandardMaterial3D_apr0t")
+size = Vector3(0.02, 0.02, 0.02)
+
+[node name="SpawnRed" type="Marker3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.232659, 0)
+
+[node name="FireEmitting" parent="." instance=ExtResource("1_c4j31")]
+amount = 500
+process_material = SubResource("ParticleProcessMaterial_8vgbj")
+draw_pass_1 = SubResource("BoxMesh_o8g4s")

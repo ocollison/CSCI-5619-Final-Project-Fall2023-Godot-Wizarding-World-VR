@@ -5,27 +5,32 @@ extends Node3D
 @onready var left_particles = $"../LeftController/LeftHand/MagicEmission/LeftFireEmitting"
 @onready var right_particles = $"../RightController/RightHand/MagicEmission/RightFireEmitting"
 
-@onready var right_portal_instance = null
-@onready var left_portal_instance = null
+
+@onready var red_pos = $"../../SpawnRed"
+@onready var blue_pos = $"../../SpawnBlue"
+@onready var green_pos = $"../../SpawnGreen"
+@onready var spawns = [red_pos, green_pos, blue_pos]
+@onready var spawn_index = 0
+@export var spawn_selector : PackedScene
+@onready var new_spawn_selector = null
 
 @onready var left_fire = $"../LeftController/LeftHand/MagicEmission/LeftFireSpell/Flames"
 @onready var right_fire = $"../RightController/RightHand/MagicEmission/RightFireSpell/Flames"
 
-@onready var left_ice = $"../LeftController/LeftHand/MagicEmission/left_ice_spell"
-@onready var right_ice = $"../RightController/RightHand/MagicEmission/right_ice_spell"
-
-@onready var spell 
+@onready var menu =  %Menu
 
 @onready var main = $"../.."
+@onready var player = $".."
 
 @onready var ice_spell
 @export var projectile : PackedScene
 @export var projectile_speed : float = 15.0
+@onready var l_marker = $"../LeftController/LeftHand/Marker3D"
+@onready var r_marker =$"../RightController/RightHand/Marker3D"
 
 @onready var lefty = $"../LeftController/LeftHand"
-@onready var l_marker = $"../LeftController/LeftHand/Marker3D"
 @onready var righty = $"../RightController/RightHand"
-@onready var r_marker =$"../RightController/RightHand/Marker3D"
+
 var left_direction
 var right_direction
 
@@ -69,7 +74,7 @@ func set_spell_state(spell):
 			#print(spell + " does not match up to " + state_name)
 
 func _on_left_controller_button_pressed(name):
-	if name == "trigger_click":
+	if name == "trigger_click" and !menu.is_visible():
 		var state = StateManager.spell
 		match state:
 			"fire":
@@ -87,7 +92,7 @@ func _on_left_controller_button_pressed(name):
 
 
 func _on_right_controller_button_pressed(name):
-	if name == "trigger_click":
+	if name == "trigger_click" and !menu.is_visible():
 		var state = StateManager.spell
 		match state:
 			"fire":
@@ -99,12 +104,12 @@ func _on_right_controller_button_pressed(name):
 			"shoot":
 				pass
 			"teleport":
-				pass
+				make_portal_selector()
 			"normal":
 				pass
 
 func _on_left_controller_button_released(name):
-	if name == "trigger_click":
+	if name == "trigger_click" and !menu.is_visible():
 		var state = StateManager.spell
 		match state:
 			"fire":
@@ -116,25 +121,14 @@ func _on_left_controller_button_released(name):
 			"shoot":
 				pass
 			"teleport":
-				if left_portal_instance != null:
-					main.remove_child(left_portal_instance)
-					left_portal_instance.queue_free()
-					
-				var portal
-				portal = load("res://scenes/left_portal.tscn")
-				
-				var translation = global_transform.basis.z * -5  
-				
-				left_portal_instance = portal.instantiate()
-				main.add_child(left_portal_instance)
-				
-				left_portal_instance.global_transform.origin = translation
+				#make_left_portal()
+				make_portal()
 			"normal":
 				pass
 				
 				
 func _on_right_controller_button_released(name):
-	if name == "trigger_click":
+	if name == "trigger_click" and !menu.is_visible():
 		var state = StateManager.spell
 		match state:
 			"fire":
@@ -146,19 +140,8 @@ func _on_right_controller_button_released(name):
 			"shoot":
 				pass
 			"teleport":
-				if right_portal_instance != null:
-					main.remove_child(right_portal_instance)
-					right_portal_instance.queue_free()
-					
-				var portal
-				portal = load("res://scenes/right_portal.tscn")
-				
-				var translation = global_transform.basis.z * -5  
-				
-				right_portal_instance = portal.instantiate()
-				main.add_child(right_portal_instance)
-				
-				right_portal_instance.global_transform.origin = translation
+				delete_portal_selector()
+				pass
 			"normal":
 				pass
 
@@ -170,3 +153,31 @@ func ice_projectile(marker):
 			add_child(new_projectile)
 			new_projectile.transform = marker.global_transform
 			new_projectile.linear_velocity = new_projectile.transform.basis.z * projectile_speed
+			
+func make_portal():
+	if spawn_index >= spawns.size():
+		spawn_index = 0
+	spawns[spawn_index].set_global_position(self.get_global_position())
+	spawns[spawn_index].visible = true
+	spawn_index += 1
+	
+func make_portal_selector():
+	if spawn_selector:
+		new_spawn_selector = spawn_selector.instantiate()
+		if new_spawn_selector:
+			player.add_child(new_spawn_selector)
+			new_spawn_selector.set_position(Vector3(0, 0.507, -0.361))
+	
+func delete_portal_selector():
+	if new_spawn_selector:
+		if new_spawn_selector.color:
+			var color = new_spawn_selector.color
+			teleport(color)
+		player.remove_child(new_spawn_selector)
+		new_spawn_selector.queue_free()
+
+func teleport(color):
+	for spawn in spawns:
+		if spawn.name.contains(color):
+			player.set_global_position(spawn.get_global_position())
+

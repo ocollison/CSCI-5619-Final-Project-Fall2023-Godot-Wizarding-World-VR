@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://dm7actshoylqt"]
+[gd_scene load_steps=69 format=3 uid="uid://dm7actshoylqt"]
 
 [ext_resource type="PackedScene" uid="uid://bu3f3m3tnr00x" path="res://scenes/starter_ground.tscn" id="1_b2gyt"]
 [ext_resource type="Script" path="res://scenes/initialize.gd" id="1_edds8"]
@@ -7,10 +7,11 @@
 [ext_resource type="Script" path="res://scripts/MagicHandler.gd" id="2_qa2te"]
 [ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="3_no41g"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="4_7jo4u"]
+[ext_resource type="PackedScene" uid="uid://dbyhq5myu8utg" path="res://scenes/right_portal.tscn" id="4_m634l"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="5_5udqi"]
 [ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="5_le5nd"]
+[ext_resource type="PackedScene" uid="uid://kltavmnqy5wg" path="res://scenes/left_portal.tscn" id="5_tfgjh"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="6_rvgso"]
-[ext_resource type="PackedScene" uid="uid://bhd48myiupvec" path="res://scenes/spawn_selector.tscn" id="6_tqx74"]
 [ext_resource type="Script" path="res://scripts/magic_state.gd" id="6_ukry3"]
 [ext_resource type="PackedScene" uid="uid://bd7e0iiv3p18r" path="res://scenes/Lightning.tscn" id="7_t5n83"]
 [ext_resource type="PackedScene" uid="uid://02g3or503roy" path="res://scenes/fire_emit.tscn" id="8_tptlw"]
@@ -20,7 +21,6 @@
 [ext_resource type="PackedScene" uid="uid://byg4v1g7vct56" path="res://scenes/fire_spell.tscn" id="10_pne3v"]
 [ext_resource type="PackedScene" uid="uid://b3i3n8lyg1uyd" path="res://scenes/ice_spell.tscn" id="11_nmst3"]
 [ext_resource type="PackedScene" uid="uid://bi3gojmlv8v5v" path="res://scenes/fire.tscn" id="11_uojyy"]
-[ext_resource type="PackedScene" uid="uid://dqldna8wknbtk" path="res://scenes/teleport.tscn" id="12_cr28d"]
 [ext_resource type="PackedScene" uid="uid://ck203tc1lbal1" path="res://scenes/spawnRed.tscn" id="22_fplpe"]
 [ext_resource type="PackedScene" uid="uid://cpq7n4oahmg0a" path="res://scenes/spawn_blue.tscn" id="24_0axll"]
 [ext_resource type="PackedScene" uid="uid://bd86j7rudig1g" path="res://scenes/spawn_green.tscn" id="25_kwduw"]
@@ -37,7 +37,7 @@ tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="Gradient" id="Gradient_f2c7p"]
-offsets = PackedFloat32Array(0, 0.0322581, 0.95935, 0.96748, 0.97561, 0.98374, 0.99187, 1)
+offsets = PackedFloat32Array(0, 0.634146, 0.95935, 0.96748, 0.97561, 0.98374, 0.99187, 1)
 colors = PackedColorArray(0.945098, 0.803922, 0, 1, 0.905882, 0.101961, 0, 1, 0.913005, 0.138231, 3.50042e-08, 1, 0.765949, 0.447825, 7.70092e-07, 1, 0.91799, 0.16362, 5.95071e-08, 1, 0.927961, 0.214399, 1.08513e-07, 1, 0.91158, 0.130977, 2.80033e-08, 1, 1, 0.201097, 0.069626, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_vk6ca"]
@@ -232,9 +232,6 @@ func _process(delta):
 	
 "
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_xm61f"]
-points = PackedVector3Array(0.457871, 0.198079, 0.0157824, -0.48874, -0.0916874, -0.0451868, -0.471509, -0.137027, -0.0907015, 0.0763591, -0.333275, 0.364179, 0.136569, -0.332425, -0.346906, -0.151617, 0.471982, -0.0602459, -0.105347, 0.211936, 0.43966, -0.0450169, 0.198098, -0.456416, 0.409077, -0.151168, 0.242516, -0.271376, -0.377761, 0.181871, 0.41148, -0.075981, -0.27324, 0.198197, -0.456161, -0.044931, -0.240641, -0.331674, -0.285768, 0.227137, 0.25672, 0.363041, 0.227522, 0.423604, -0.135488, -0.37899, 0.0607022, 0.319462, -0.406747, 0.181049, -0.225691, -0.0146313, -0.0917695, 0.490229, -0.377855, 0.302793, 0.121712, 0.0462323, 0.456011, 0.198185, -0.227464, -0.0607863, -0.440348, 0.228455, 0.0607228, -0.439887, -0.0911376, -0.489246, -0.045174, 0.441865, -0.228216, -0.0449581, 0.317179, 0.241214, -0.300812, -0.0448487, 0.394737, -0.302955, -0.316348, -0.196222, 0.332551, 0.198442, -0.0304293, 0.457237, 0.0614714, -0.152246, -0.471307, 0.363089, 0.256708, 0.227079, 0.152134, -0.439489, 0.182379, -0.210725, 0.362276, 0.27223)
-
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dju2n"]
 particle_flag_rotate_y = true
 emission_shape = 2
@@ -324,9 +321,6 @@ bottom_radius = 0.003
 height = 0.1
 radial_segments = 16
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_wcwex"]
-points = PackedVector3Array(0.457871, 0.198079, 0.0157824, -0.48874, -0.0916874, -0.0451868, -0.471509, -0.137027, -0.0907015, 0.0763591, -0.333275, 0.364179, 0.136569, -0.332425, -0.346906, -0.151617, 0.471982, -0.0602459, -0.105347, 0.211936, 0.43966, -0.0450169, 0.198098, -0.456416, 0.409077, -0.151168, 0.242516, -0.271376, -0.377761, 0.181871, 0.41148, -0.075981, -0.27324, 0.198197, -0.456161, -0.044931, -0.240641, -0.331674, -0.285768, 0.227137, 0.25672, 0.363041, 0.227522, 0.423604, -0.135488, -0.37899, 0.0607022, 0.319462, -0.406747, 0.181049, -0.225691, -0.0146313, -0.0917695, 0.490229, -0.377855, 0.302793, 0.121712, 0.0462323, 0.456011, 0.198185, -0.227464, -0.0607863, -0.440348, 0.228455, 0.0607228, -0.439887, -0.0911376, -0.489246, -0.045174, 0.441865, -0.228216, -0.0449581, 0.317179, 0.241214, -0.300812, -0.0448487, 0.394737, -0.302955, -0.316348, -0.196222, 0.332551, 0.198442, -0.0304293, 0.457237, 0.0614714, -0.152246, -0.471307, 0.363089, 0.256708, 0.227079, 0.152134, -0.439489, 0.182379, -0.210725, 0.362276, 0.27223)
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t00x8"]
 radius = 0.174605
 height = 1.05774
@@ -352,7 +346,8 @@ script = ExtResource("2_o87p0")
 
 [node name="MagicHandler" type="Node3D" parent="XROrigin3D"]
 script = ExtResource("2_qa2te")
-spawn_selector = ExtResource("6_tqx74")
+right_portal_instance = ExtResource("4_m634l")
+left_portal_instance = ExtResource("5_tfgjh")
 projectile = ExtResource("11_nmst3")
 
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
@@ -375,9 +370,6 @@ script = SubResource("GDScript_rhwd6")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0319276, -0.0478053, 0.0868755)
 script = ExtResource("6_ukry3")
 
-[node name="LeftTeleport" parent="XROrigin3D/LeftController/LeftHand/MagicState" groups=["State"] instance=ExtResource("12_cr28d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.032, -0.048, 0.087)
-
 [node name="MagicEmission" type="Node3D" parent="XROrigin3D/LeftController/LeftHand"]
 
 [node name="LeftFireEmitting" parent="XROrigin3D/LeftController/LeftHand/MagicEmission" groups=["Spell"] instance=ExtResource("8_tptlw")]
@@ -396,14 +388,6 @@ script = SubResource("GDScript_uml0x")
 
 [node name="Marker3D" type="Marker3D" parent="XROrigin3D/LeftController/LeftHand"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-
-[node name="Collisions" type="Node3D" parent="XROrigin3D/LeftController/LeftHand"]
-
-[node name="Area3D" type="Area3D" parent="XROrigin3D/LeftController/LeftHand/Collisions"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/LeftController/LeftHand/Collisions/Area3D"]
-transform = Transform3D(0.0812626, 0, 0, 0, 0.0812626, 0, 0, 0, 0.0812626, -0.0300865, -0.0501067, 0.109454)
-shape = SubResource("ConvexPolygonShape3D_xm61f")
 
 [node name="MovementDirect" parent="XROrigin3D/LeftController" instance=ExtResource("3_no41g")]
 strafe = true
@@ -432,9 +416,6 @@ script = SubResource("GDScript_mdv0a")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.025224, -0.0612765, 0.0961006)
 script = ExtResource("6_ukry3")
 
-[node name="RightTeleport" parent="XROrigin3D/RightController/RightHand/MagicSate" groups=["State"] instance=ExtResource("12_cr28d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.025224, -0.0612765, 0.0961006)
-
 [node name="MagicEmission" type="Node3D" parent="XROrigin3D/RightController/RightHand"]
 
 [node name="RightFireEmitting" parent="XROrigin3D/RightController/RightHand/MagicEmission" groups=["Spell"] instance=ExtResource("8_tptlw")]
@@ -454,14 +435,6 @@ script = SubResource("GDScript_uml0x")
 
 [node name="Marker3D" type="Marker3D" parent="XROrigin3D/RightController/RightHand"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-
-[node name="Collisions" type="Node3D" parent="XROrigin3D/RightController/RightHand"]
-transform = Transform3D(0.0828411, 0, 0, 0, 0.0828411, 0, 0, 0, 0.0828411, 0.0267871, -0.0492748, 0.106139)
-
-[node name="Area3D" type="Area3D" parent="XROrigin3D/RightController/RightHand/Collisions"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/RightController/RightHand/Collisions/Area3D"]
-shape = SubResource("ConvexPolygonShape3D_wcwex")
 
 [node name="MovementDirect" parent="XROrigin3D/RightController" instance=ExtResource("3_no41g")]
 
@@ -484,11 +457,11 @@ scene = ExtResource("9_ldcmq")
 viewport_size = Vector2(2048, 1024)
 input_keyboard = false
 
-[node name="PlayerCollision" type="Node3D" parent="XROrigin3D"]
+[node name="Node3D" type="Node3D" parent="XROrigin3D"]
 
-[node name="PlayerCollison" type="Area3D" parent="XROrigin3D/PlayerCollision"]
+[node name="PlayerCollison" type="Area3D" parent="XROrigin3D/Node3D"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/PlayerCollision/PlayerCollison"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/Node3D/PlayerCollison"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.338025, 0.377774)
 shape = SubResource("CapsuleShape3D_t00x8")
 
