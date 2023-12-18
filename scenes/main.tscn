@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://dm7actshoylqt"]
+[gd_scene load_steps=64 format=3 uid="uid://dm7actshoylqt"]
 
 [ext_resource type="PackedScene" uid="uid://bu3f3m3tnr00x" path="res://scenes/starter_ground.tscn" id="1_b2gyt"]
 [ext_resource type="Script" path="res://scenes/initialize.gd" id="1_edds8"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://d2mp0kj78daub" path="res://scenes/ui.tscn" id="9_ldcmq"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="10_nostw"]
 [ext_resource type="PackedScene" uid="uid://byg4v1g7vct56" path="res://scenes/fire_spell.tscn" id="10_pne3v"]
+[ext_resource type="PackedScene" uid="uid://b3i3n8lyg1uyd" path="res://scenes/ice_spell.tscn" id="11_nmst3"]
 [ext_resource type="PackedScene" uid="uid://bi3gojmlv8v5v" path="res://scenes/fire.tscn" id="11_uojyy"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3xkvy"]
@@ -205,6 +206,27 @@ bottom_radius = 0.003
 height = 0.1
 radial_segments = 16
 
+[sub_resource type="GDScript" id="GDScript_uml0x"]
+script/source = "extends Node3D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	if $Flames.emitting == true:
+		$Smoke.emitting = true
+	else:
+		$Smoke.emitting = false
+	#self.global_position += get_parent().global_transform.basis.z * Vector3(-delta*3, -delta*3, -delta*3)
+	#$Flames.process_material.gravity = get_parent().global_transform.basis.z * Vector3(-delta*3, -delta*3, -delta*3)
+	#$Smoke.process_material.gravity = get_parent().global_transform.basis.z * Vector3(-delta*3, -delta*3, -delta*3)
+	
+"
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dju2n"]
 particle_flag_rotate_y = true
 emission_shape = 2
@@ -319,6 +341,7 @@ script = ExtResource("2_o87p0")
 
 [node name="MagicHandler" type="Node3D" parent="XROrigin3D"]
 script = ExtResource("2_qa2te")
+projectile = ExtResource("11_nmst3")
 
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54292, 0.462771)
@@ -338,7 +361,6 @@ script = SubResource("GDScript_rhwd6")
 
 [node name="LeftIce" parent="XROrigin3D/LeftController/LeftHand/MagicState" groups=["State"] instance=ExtResource("7_t5n83")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0319276, -0.0478053, 0.0868755)
-visible = false
 script = ExtResource("6_ukry3")
 
 [node name="MagicEmission" type="Node3D" parent="XROrigin3D/LeftController/LeftHand"]
@@ -355,6 +377,10 @@ process_material = SubResource("ParticleProcessMaterial_uuj0r")
 draw_pass_1 = SubResource("CylinderMesh_f73f1")
 
 [node name="LeftFireSpell" parent="XROrigin3D/LeftController/LeftHand/MagicEmission" instance=ExtResource("10_pne3v")]
+script = SubResource("GDScript_uml0x")
+
+[node name="Marker3D" type="Marker3D" parent="XROrigin3D/LeftController/LeftHand"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="MovementDirect" parent="XROrigin3D/LeftController" instance=ExtResource("3_no41g")]
 strafe = true
@@ -379,7 +405,7 @@ process_material = SubResource("ParticleProcessMaterial_dju2n")
 draw_pass_1 = SubResource("BoxMesh_isc6e")
 script = SubResource("GDScript_mdv0a")
 
-[node name="RightLightning" parent="XROrigin3D/RightController/RightHand/MagicSate" groups=["State"] instance=ExtResource("7_t5n83")]
+[node name="RightIce" parent="XROrigin3D/RightController/RightHand/MagicSate" groups=["State"] instance=ExtResource("7_t5n83")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.025224, -0.0612765, 0.0961006)
 script = ExtResource("6_ukry3")
 
@@ -398,6 +424,10 @@ process_material = SubResource("ParticleProcessMaterial_bifli")
 draw_pass_1 = SubResource("CylinderMesh_mp0gv")
 
 [node name="RightFireSpell" parent="XROrigin3D/RightController/RightHand/MagicEmission" instance=ExtResource("10_pne3v")]
+script = SubResource("GDScript_uml0x")
+
+[node name="Marker3D" type="Marker3D" parent="XROrigin3D/RightController/RightHand"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="MovementDirect" parent="XROrigin3D/RightController" instance=ExtResource("3_no41g")]
 

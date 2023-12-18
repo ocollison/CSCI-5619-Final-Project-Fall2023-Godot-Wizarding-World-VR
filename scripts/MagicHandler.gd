@@ -19,10 +19,13 @@ extends Node3D
 @onready var main = $"../.."
 
 @onready var ice_spell
+@export var projectile : PackedScene
+@export var projectile_speed : float = 15.0
 
 @onready var lefty = $"../LeftController/LeftHand"
+@onready var l_marker = $"../LeftController/LeftHand/Marker3D"
 @onready var righty = $"../RightController/RightHand"
-
+@onready var r_marker =$"../RightController/RightHand/Marker3D"
 var left_direction
 var right_direction
 
@@ -60,18 +63,19 @@ func set_spell_state(spell):
 		var state_name = str(state.name).to_lower()
 		if state_name.contains(str(spell)):
 			state.emitting = true
+			#print(spell + " does equal to " + state_name)
 		else:
 			state.emitting = false
+			#print(spell + " does not match up to " + state_name)
 
 func _on_left_controller_button_pressed(name):
 	if name == "trigger_click":
-		print("REAL " + StateManager.spell)
 		var state = StateManager.spell
 		match state:
 			"fire":
 				left_fire.emitting = true
 			"ice":
-				left_lightning_magic.emitting = true
+				pass
 			"grab":
 				pass
 			"shoot":
@@ -89,7 +93,7 @@ func _on_right_controller_button_pressed(name):
 			"fire":
 				right_fire.emitting = true
 			"ice":
-				right_lightning_magic.emitting = true
+				pass
 			"grab":
 				pass
 			"shoot":
@@ -106,7 +110,7 @@ func _on_left_controller_button_released(name):
 			"fire":
 				left_fire.emitting = false
 			"ice":
-				left_lightning_magic.emitting = false
+				ice_projectile(l_marker)
 			"grab":
 				pass
 			"shoot":
@@ -126,15 +130,9 @@ func _on_left_controller_button_released(name):
 				
 				left_portal_instance.global_transform.origin = translation
 			"normal":
-				var ice
-				ice = load("res://scenes/ice_spell.tscn")
+				pass
 				
-				ice_spell = ice.instantiate()
-				main.add_child(ice_spell)
-				ice_spell.set_global_position(lefty.get_global_position())
 				
-				#ice_spell.move(left_direction, 3)
-
 func _on_right_controller_button_released(name):
 	if name == "trigger_click":
 		var state = StateManager.spell
@@ -142,7 +140,7 @@ func _on_right_controller_button_released(name):
 			"fire":
 				right_fire.emitting = false
 			"ice":
-				right_lightning_magic.emitting = false
+				ice_projectile(r_marker)
 			"grab":
 				pass
 			"shoot":
@@ -164,5 +162,11 @@ func _on_right_controller_button_released(name):
 			"normal":
 				pass
 
-func create_portal():
-	pass
+func ice_projectile(marker):
+	if projectile:
+		var new_projectile : RigidBody3D = projectile.instantiate()
+		if new_projectile:
+			new_projectile.set_as_top_level(true)
+			add_child(new_projectile)
+			new_projectile.transform = marker.global_transform
+			new_projectile.linear_velocity = new_projectile.transform.basis.z * projectile_speed

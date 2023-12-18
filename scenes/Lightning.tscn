@@ -50,7 +50,7 @@ vertex_color_is_srgb = true
 material = SubResource("StandardMaterial3D_6basm")
 size = Vector3(0.02, 0.02, 0.02)
 
-[node name="LightningStanding" type="GPUParticles3D"]
+[node name="IceStanding" type="GPUParticles3D"]
 emitting = false
 amount = 50
 lifetime = 0.2
