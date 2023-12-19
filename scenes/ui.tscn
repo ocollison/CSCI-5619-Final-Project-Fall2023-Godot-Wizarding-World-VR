@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/ui.gd" id="1_mpfrs"]
 [ext_resource type="PackedScene" uid="uid://bxcosvmfin7xb" path="res://scenes/speech_recognizer_demo.tscn" id="2_rgxpi"]
-[ext_resource type="Script" path="res://scripts/canvas.gd" id="2_sfvpx"]
+[ext_resource type="PackedScene" uid="uid://cs2uiru7reudd" path="res://scenes/paint_root.tscn" id="3_10iwd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2rla5"]
 bg_color = Color(0.270588, 0.447059, 0.87451, 0.768627)
@@ -45,7 +45,7 @@ theme_override_font_sizes/font_size = 72
 theme_override_styles/panel = SubResource("StyleBoxFlat_2rla5")
 theme_override_styles/tabbar_background = SubResource("StyleBoxFlat_e7jti")
 tab_alignment = 1
-current_tab = 1
+current_tab = 2
 
 [node name="Spells" type="TabBar" parent="MarginContainer/TabContainer"]
 visible = false
@@ -68,6 +68,7 @@ theme_override_font_sizes/font_size = 72
 text = "The Spells Button"
 
 [node name="Voice" type="TabBar" parent="MarginContainer/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Control" parent="MarginContainer/TabContainer/Voice" instance=ExtResource("2_rgxpi")]
@@ -79,46 +80,18 @@ grow_horizontal = 1
 grow_vertical = 1
 scale = Vector2(0.996993, 0.895765)
 
-[node name="Other" type="TabBar" parent="MarginContainer/TabContainer"]
-visible = false
+[node name="Arcane" type="TabBar" parent="MarginContainer/TabContainer"]
 layout_mode = 2
-script = ExtResource("2_sfvpx")
 
-[node name="ColorRect" type="ColorRect" parent="MarginContainer/TabContainer/Other"]
+[node name="PaintRoot" parent="MarginContainer/TabContainer/Arcane" instance=ExtResource("3_10iwd")]
 layout_mode = 1
-anchors_preset = -1
+anchors_preset = 15
 anchor_right = 1.0
-anchor_bottom = 0.83
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Other"]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.444
-anchor_right = 1.0
-anchor_bottom = 0.548
-offset_left = -1.0
-offset_top = 201.9
-offset_right = -1.0
-offset_bottom = 235.3
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Clear" type="Button" parent="MarginContainer/TabContainer/Other/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "Clear"
-
-[node name="Cast Spell" type="Button" parent="MarginContainer/TabContainer/Other/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "Cast Spell"
-
-[node name="Polygon2D" type="Polygon2D" parent="MarginContainer/TabContainer/Other"]
-position = Vector2(497, 200)
-
-[node name="Line2D" type="Line2D" parent="MarginContainer/TabContainer/Other/Polygon2D"]
 
 [node name="AllSeeingEye" type="TabBar" parent="MarginContainer/TabContainer"]
 visible = false
@@ -152,10 +125,8 @@ text = "Stop Following
 "
 
 [node name="Sprite2D" type="Sprite2D" parent="MarginContainer/TabContainer/AllSeeingEye"]
-position = Vector2(347, 265)
-scale = Vector2(0.6, 0.6)
+position = Vector2(497, 294)
+scale = Vector2(0.5, 0.5)
 
-[connection signal="pressed" from="MarginContainer/TabContainer/Other/VBoxContainer/Clear" to="MarginContainer/TabContainer/Other" method="_on_clear_pressed"]
-[connection signal="pressed" from="MarginContainer/TabContainer/Other/VBoxContainer/Cast Spell" to="MarginContainer/TabContainer/Other" method="_on_cast_spell_pressed"]
 [connection signal="pressed" from="MarginContainer/TabContainer/AllSeeingEye/Follow" to="." method="_on_follow_pressed"]
 [connection signal="pressed" from="MarginContainer/TabContainer/AllSeeingEye/Unfollow" to="." method="_on_unfollow_pressed"]

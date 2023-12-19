@@ -34,12 +34,17 @@ extends Node3D
 
 @export var eyeball : PackedScene
 
+@export var arcane : PackedScene
+var draw
+
+
 var left_direction
 var right_direction
 
 func _ready():
 	StateManager.state_changed.connect(spell_casted)
-	#print(camera.get_position())
+	StateManager.arcane.connect(make_magic_hex)
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	#particle tuning so they emit the right way
@@ -60,12 +65,17 @@ func _process(delta):
 	right_lightning_magic.get_process_material().gravity = right_direction 
 	right_fire.get_process_material().gravity = right_direction 
 	
+	#if draw == false:
+		#StateManager.drawing = false
+	#else:
+		#StateManager.drawing = true
+	#
 	
 
 func spell_casted():
 	var spell = StateManager.spell
 	set_spell_state(spell)
-
+	
 
 
 func set_spell_state(spell):
@@ -216,4 +226,18 @@ func eye_projectile(marker):
 			add_child(new_eyeball)
 			new_eyeball.transform = marker.global_transform
 			new_eyeball.linear_velocity = new_eyeball.transform.basis.z * projectile_speed
+			
+func make_magic_hex():
+	#var instance = StateManager.num - 1
+	#var texture = load("res://images/Mesh" + str(instance) + ".png")
+	var texture = StateManager.drawings[0]
+	if arcane:
+		var new_arcane = arcane.instantiate()
+		if new_arcane:
+			new_arcane.set_as_top_level(true)
+			add_child(new_arcane)
+			new_arcane.transform = l_marker.global_transform
+			new_arcane.get_child(1).get_child(0).set_texture(texture)
+
+	
 

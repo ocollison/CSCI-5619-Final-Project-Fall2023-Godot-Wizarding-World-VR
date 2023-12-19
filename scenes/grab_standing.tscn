@@ -54,6 +54,5 @@ material = SubResource("StandardMaterial3D_6basm")
 size = Vector3(0.02, 0.02, 0.02)
 
 [node name="GrabStanding" instance=ExtResource("1_nwprg")]
-emitting = true
 process_material = SubResource("ParticleProcessMaterial_qdqyc")
 draw_pass_1 = SubResource("BoxMesh_mvcxh")

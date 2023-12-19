@@ -1,16 +1,19 @@
 extends Node
 
 signal state_changed
+signal arcane
 var spell = "normal"
 var num = 1
 @onready var error = $"../ErrorLabel"
 var big_eye = null
 @onready var follow = false
-
+@onready var spell_label = $"../SpellLabel"
+var drawing = true
+var drawings = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -42,10 +45,14 @@ func _on_speech_recognizer_on_final_result(finalResults):
 			self.spell = word
 			set_spell(word)
 			spell_activation_cue(spell)
+			$"../SpellLabel".text = str("You've casted the " + spell + " spell!")
+			spell_label.visible = true
+			#print(spell_label.get_text())
 			error.visible = false
 			return
 		
 	print("No special ability found in string")
+	spell_label.visible = false
 	error.visible = true
 	
 func spell_activation_cue(spell):

@@ -1,0 +1,61 @@
+[gd_scene load_steps=12 format=3 uid="uid://cn2oahen4ioe8"]
+
+[sub_resource type="Gradient" id="Gradient_j5s5w"]
+colors = PackedColorArray(0, 0.693717, 0.745516, 1, 0.901506, 0.868944, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ceocc"]
+gradient = SubResource("Gradient_j5s5w")
+
+[sub_resource type="Curve" id="Curve_ydu4n"]
+max_value = 100.0
+_data = [Vector2(0.0844156, 89.4737), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_5antu"]
+curve = SubResource("Curve_ydu4n")
+
+[sub_resource type="Curve" id="Curve_kmuuj"]
+_data = [Vector2(0, 0.421053), 0.0, 0.0, 0, 0, Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(0.48052, 0.831579), 0.0, 0.0, 0, 0, Vector2(0.668831, 0.410526), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_spds5"]
+curve = SubResource("Curve_kmuuj")
+
+[sub_resource type="Curve" id="Curve_ugx7p"]
+_data = [Vector2(0.012987, 0), 0.0, 0.0, 0, 0, Vector2(0.902597, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_g45bp"]
+curve = SubResource("Curve_ugx7p")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_k0g51"]
+particle_flag_rotate_y = true
+emission_shape = 2
+emission_sphere_radius = 0.07
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, 0, 0)
+tangential_accel_min = 3.0
+tangential_accel_max = 3.0
+tangential_accel_curve = SubResource("CurveTexture_g45bp")
+damping_curve = SubResource("CurveTexture_5antu")
+scale_curve = SubResource("CurveTexture_spds5")
+color_ramp = SubResource("GradientTexture1D_ceocc")
+hue_variation_max = 0.11
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6basm"]
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_loly7"]
+material = SubResource("StandardMaterial3D_6basm")
+size = Vector3(0.02, 0.02, 0.02)
+
+[node name="visionStanding" type="GPUParticles3D"]
+emitting = false
+amount = 50
+lifetime = 0.2
+speed_scale = 0.4
+randomness = 1.0
+visibility_aabb = AABB(-0.122834, -0.258052, -0.104995, 0.245668, 0.448721, 0.20999)
+process_material = SubResource("ParticleProcessMaterial_k0g51")
+draw_pass_1 = SubResource("BoxMesh_loly7")

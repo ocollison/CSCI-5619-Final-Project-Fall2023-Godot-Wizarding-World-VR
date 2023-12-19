@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://bs6j6isuean4f"]
+
+[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_mv8t7"]
+[ext_resource type="Texture2D" uid="uid://bghlu7s5bsuo8" path="res://textures/paper.jpg" id="2_rins0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_18e02"]
+size = Vector3(0.788696, 1, 0.0958252)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8fcjf"]
+albedo_texture = ExtResource("2_rins0")
+
+[sub_resource type="BoxMesh" id="BoxMesh_r53ll"]
+material = SubResource("StandardMaterial3D_8fcjf")
+
+[node name="Paper" instance=ExtResource("1_mv8t7")]
+
+[node name="CollisionShape3D" parent="." index="0"]
+transform = Transform3D(0.490373, 0, 0, 0, 0.490373, 0, 0, 0, 0.490373, 0.00274658, 0, -0.0108032)
+shape = SubResource("BoxShape3D_18e02")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1"]
+transform = Transform3D(0.376927, 0, 0, 0, 0.486152, 0, 0, 0, 0.0227154, 0, 0, 0)
+mesh = SubResource("BoxMesh_r53ll")
+
+[node name="Sprite3D" type="Sprite3D" parent="MeshInstance3D" index="0"]
+transform = Transform3D(0.08, 0, 0, 0, 0.133, 0, 0, 0, 0.178, 0, 0, 0.67626)

@@ -103,6 +103,17 @@ script = ExtResource("2_o1r7v")
 [node name="StateManager" type="Node" parent="."]
 script = ExtResource("3_mutq6")
 
+[node name="SpellLabel" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 473.0
+offset_top = 397.0
+offset_right = 749.0
+offset_bottom = 431.0
+theme_override_font_sizes/font_size = 24
+text = "Nice"
+horizontal_alignment = 1
+
 [node name="ErrorLabel" type="Label" parent="."]
 visible = false
 layout_mode = 0

@@ -4,7 +4,7 @@ extends CanvasLayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass 
+	tabs.set_current_tab(0) 
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -16,6 +16,10 @@ func _process(delta):
 		tabs.set_tab_hidden(3, false)
 		tabs.set_tab_disabled(3, false)
 		eye_cam.set_texture(StateManager.big_eye.get_child(0).get_texture())
+	if tabs.get_current_tab() != 2:
+		StateManager.drawing = false
+	else:
+		StateManager.drawing = true
 
 
 func _on_follow_pressed():
@@ -23,3 +27,5 @@ func _on_follow_pressed():
 
 func _on_unfollow_pressed():
 	StateManager.follow = false
+
+
