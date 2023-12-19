@@ -21,13 +21,6 @@ albedo_texture = SubResource("ViewportTexture_p3xyv")
 [sub_resource type="SphereMesh" id="SphereMesh_eodjy"]
 material = SubResource("StandardMaterial3D_clnfa")
 
-[sub_resource type="SphereMesh" id="SphereMesh_3ld1o"]
-flip_faces = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qd5nm"]
-shading_mode = 0
-albedo_color = Color(0.980392, 0.301961, 1, 1)
-
 [sub_resource type="Resource" id="Resource_ud5dy"]
 script = ExtResource("5_achsv")
 closed_pose = ExtResource("4_d0suf")
@@ -36,10 +29,17 @@ closed_pose = ExtResource("4_d0suf")
 script = ExtResource("5_achsv")
 closed_pose = ExtResource("7_ecj7i")
 
+[sub_resource type="SphereMesh" id="SphereMesh_3ld1o"]
+flip_faces = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qd5nm"]
+shading_mode = 0
+albedo_color = Color(0.980392, 0.301961, 1, 1)
+
 [node name="MagicOrb" instance=ExtResource("1_es7ks")]
 
 [node name="CollisionShape3D" parent="." index="0"]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+transform = Transform3D(0.308076, 0, 0, 0, 0.308076, 0, 0, 0, 0.308076, 0, 0, 0)
 shape = SubResource("SphereShape3D_if3kq")
 
 [node name="Orb" type="MeshInstance3D" parent="." index="1"]
@@ -47,7 +47,18 @@ transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
 mesh = SubResource("SphereMesh_eodjy")
 script = ExtResource("2_03ua5")
 
-[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="." index="2"]
+[node name="GrabPointHandLeft" parent="." index="2" instance=ExtResource("3_4kb5u")]
+transform = Transform3D(0.984745, -0.172895, 0.0196241, 0.172344, 0.984668, 0.0269514, -0.0239829, -0.0231582, 0.999444, -0.153744, 0.0244457, -0.0788389)
+hand_pose = SubResource("Resource_ud5dy")
+
+[node name="GrabPointHandRight" parent="." index="3" instance=ExtResource("6_yup4k")]
+transform = Transform3D(0.958749, -0.282593, -0.0306985, 0.28259, 0.95923, -0.00450251, 0.0307193, -0.00435834, 0.999519, 0.126293, 0.0762846, -0.093093)
+hand_pose = SubResource("Resource_mx71v")
+
+[node name="SubViewport" type="SubViewport" parent="." index="4"]
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="." index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("2_xgthh")
 
 [node name="HighlightMesh" type="MeshInstance3D" parent="XRToolsHighlightRing" index="0"]
@@ -55,13 +66,3 @@ transform = Transform3D(0.32, 0, 0, 0, 0.32, 0, 0, 0, 0.32, 0, 0, 0)
 mesh = SubResource("SphereMesh_3ld1o")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_qd5nm")
-
-[node name="GrabPointHandLeft" parent="." index="3" instance=ExtResource("3_4kb5u")]
-transform = Transform3D(0.984745, -0.172895, 0.0196241, 0.172344, 0.984668, 0.0269514, -0.0239829, -0.0231582, 0.999444, -0.153744, 0.0244457, -0.0788389)
-hand_pose = SubResource("Resource_ud5dy")
-
-[node name="GrabPointHandRight" parent="." index="4" instance=ExtResource("6_yup4k")]
-transform = Transform3D(0.958749, -0.282593, -0.0306985, 0.28259, 0.95923, -0.00450251, 0.0307193, -0.00435834, 0.999519, 0.126293, 0.0762846, -0.093093)
-hand_pose = SubResource("Resource_mx71v")
-
-[node name="SubViewport" type="SubViewport" parent="." index="5"]

@@ -107,7 +107,7 @@ func _process(_delta):
 
 func check_if_mouse_is_inside_canvas():
 	# Make sure we have a mouse click starting position.
-	if mouse_click_start_pos != null or StateManager.drawing == true:
+	if mouse_click_start_pos != null:# or StateManager.drawing == true:
 		# Make sure the mouse click starting position is inside the canvas.
 		# This is so if we start out click outside the canvas (say chosing a color from the color picker)
 		# and then move our mouse back into the canvas, it won't start painting.
@@ -248,8 +248,8 @@ func save_picture(path):
 	#path = "C:/Users/student/Documents/GitHub/CSCI-5619-Final-Project-Fall2023-main/images/" + str(name) + ".png"
 	# Get the viewport image.
 	var img = get_viewport().get_texture().get_image()
-	var tex = get_viewport().get_texture()
-	StateManager.drawings.push_front(tex)
+	var tex = ImageTexture.new()
+	
 	# Crop the image so we only have canvas area.
 	img.blit_rect(img, Rect2(350, 0, 2000, img.get_height()), Vector2(0, 0))
 	# Flip the image on the Y-axis (it's flipped upside down by default).
@@ -258,6 +258,9 @@ func save_picture(path):
 	
 	# Save the image with the passed in path we got from the save dialog.
 	img.save_png(path)
+	
+	tex = tex.create_from_image(img)
+	StateManager.drawings.push_front(tex)
 	StateManager.arcane.emit()
 
 

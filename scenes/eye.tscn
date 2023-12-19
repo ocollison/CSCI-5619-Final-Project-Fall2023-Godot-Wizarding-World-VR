@@ -20,5 +20,8 @@ size = Vector2i(1024, 1024)
 render_target_update_mode = 4
 
 [node name="Camera3D" type="Camera3D" parent="SubViewport"]
-transform = Transform3D(-0.99991, -0.0134037, 1.17178e-09, -0.0134037, 0.99991, -8.74149e-08, 7.10543e-15, -8.74228e-08, -1, 0.111803, 4.05608, 1.03024)
+transform = Transform3D(7.3486e-08, 1.68116, -1.46972e-07, 1.68116, -7.3486e-08, 0, -6.42435e-15, -1.46972e-07, -1.68116, 0.111803, 4.05608, 0.159818)
 fov = 118.31
+
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="."]
+remote_path = NodePath("../SubViewport/Camera3D")

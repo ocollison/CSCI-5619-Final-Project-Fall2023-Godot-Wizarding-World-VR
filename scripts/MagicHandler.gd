@@ -237,7 +237,7 @@ func make_magic_hex():
 			new_arcane.set_as_top_level(true)
 			add_child(new_arcane)
 			new_arcane.transform = l_marker.global_transform
+			new_arcane.look_at(player.get_global_position())
 			new_arcane.get_child(1).get_child(0).set_texture(texture)
-
 	
 
