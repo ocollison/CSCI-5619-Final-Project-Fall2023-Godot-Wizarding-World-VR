@@ -4,6 +4,8 @@ signal state_changed
 var spell = "normal"
 var num = 1
 @onready var error = $"../ErrorLabel"
+var big_eye = null
+@onready var follow = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -33,7 +35,7 @@ func clean_text(json_text):
 
 func _on_speech_recognizer_on_final_result(finalResults):
 	finalResults = clean_text(finalResults)
-	var special_words = ["fire", "ice", "teleport", "shoot", "grab"]
+	var special_words = ["fire", "ice", "teleport", "vision", "grab"]
 	
 	for word in special_words:
 		if finalResults.find(word) != -1:
@@ -56,7 +58,7 @@ func spell_activation_cue(spell):
 	if spell == "teleport":
 		var audio = load("res://audio/Teleportation.mp3")
 		$"../SpellCue".play()
-	if spell == "shoot":
+	if spell == "vision":
 		pass
 	if spell == "grab":
 		pass

@@ -32,6 +32,8 @@ extends Node3D
 @onready var lefty = $"../LeftController/LeftHand"
 @onready var righty = $"../RightController/RightHand"
 
+@export var eyeball : PackedScene
+
 var left_direction
 var right_direction
 
@@ -57,6 +59,9 @@ func _process(delta):
 	right_particles.get_process_material().gravity = right_direction 
 	right_lightning_magic.get_process_material().gravity = right_direction 
 	right_fire.get_process_material().gravity = right_direction 
+	
+	
+
 func spell_casted():
 	var spell = StateManager.spell
 	set_spell_state(spell)
@@ -83,7 +88,7 @@ func _on_left_controller_button_pressed(name):
 				pass
 			"grab":
 				pass
-			"shoot":
+			"vision":
 				pass
 			"teleport":
 				pass
@@ -101,7 +106,7 @@ func _on_right_controller_button_pressed(name):
 				pass
 			"grab":
 				pass
-			"shoot":
+			"vision":
 				pass
 			"teleport":
 				make_portal_selector()
@@ -118,8 +123,12 @@ func _on_left_controller_button_released(name):
 				ice_projectile(l_marker)
 			"grab":
 				pass
-			"shoot":
-				pass
+			"vision":
+				var check_eye = get_node_or_null("/root/Main/eye")
+				if check_eye != null:
+					main.remove_child(check_eye)
+					check_eye.queue_free()
+				eye_projectile(l_marker)
 			"teleport":
 				#make_left_portal()
 				make_portal()
@@ -137,8 +146,12 @@ func _on_right_controller_button_released(name):
 				ice_projectile(r_marker)
 			"grab":
 				pass
-			"shoot":
-				pass
+			"vision":
+				var vision = StateManager.big_eye
+				if vision != null:
+					vision.look_at(player.get_global_position())
+					vision.get_child(0).get_child(0).look_at(player.get_global_position())
+					%MagicOrb.get_child(1).set_view_texture(vision.get_child(0).get_texture())
 			"teleport":
 				delete_portal_selector()
 				pass
@@ -194,4 +207,13 @@ func teleport(color):
 	for spawn in spawns:
 		if spawn.name.contains(color):
 			player.set_global_position(spawn.get_global_position())
+
+func eye_projectile(marker):
+	if eyeball:
+		var new_eyeball : RigidBody3D = eyeball.instantiate()
+		if new_eyeball:
+			new_eyeball.set_as_top_level(true)
+			add_child(new_eyeball)
+			new_eyeball.transform = marker.global_transform
+			new_eyeball.linear_velocity = new_eyeball.transform.basis.z * projectile_speed
 

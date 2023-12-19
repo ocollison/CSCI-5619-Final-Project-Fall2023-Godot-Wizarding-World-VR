@@ -180,6 +180,10 @@ func _ready():
 # Called on each frame to update the pickup
 func _process(_delta):
 	# Do not process if in the editor
+	if %Menu.visible == false:
+		enabled = false
+	else:
+		enabled = true
 	if Engine.is_editor_hint() or !is_inside_tree():
 		return
 

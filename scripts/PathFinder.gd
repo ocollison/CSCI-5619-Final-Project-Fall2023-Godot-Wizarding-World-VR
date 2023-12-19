@@ -1,9 +1,9 @@
 extends Node
-@onready var spawn_red = $"../SpawnRed".get_path()
-@onready var spawn_blue = $"../SpawnBlue".get_path()
-@onready var spawn_green = $"../SpawnGreen".get_path()
-@onready var right_hand_collison = $"../XROrigin3D/RightController/RightHand/Collisions/Area3D".get_path()
-@onready var object = $"../XROrigin3D/XRCamera3D/SpawnSelector"
+#@onready var spawn_red = $"../SpawnRed".get_path()
+#@onready var spawn_blue = $"../SpawnBlue".get_path()
+#@onready var spawn_green = $"../SpawnGreen".get_path()
+#@onready var right_hand_collison = $"../XROrigin3D/RightController/RightHand/Collisions/Area3D".get_path()
+#@onready var object = $"../XROrigin3D/XRCamera3D/SpawnSelector"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass

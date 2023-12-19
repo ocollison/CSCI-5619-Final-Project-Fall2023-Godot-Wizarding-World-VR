@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://bjfgw2ve8c1hn"]
+
+[ext_resource type="Texture2D" uid="uid://bvoe8h73yrv0e" path="res://textures/eye07.jpg" id="1_krswj"]
+[ext_resource type="Script" path="res://scripts/eye.gd" id="2_wj5fu"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_8leew"]
+lightmap_size_hint = Vector2i(0, -25)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_npqhr"]
+albedo_texture = ExtResource("1_krswj")
+
+[node name="eye" type="MeshInstance3D"]
+transform = Transform3D(7.3486e-08, 1.68116, -1.46972e-07, 1.68116, -7.3486e-08, 0, -6.42435e-15, -1.46972e-07, -1.68116, 0.111803, 4.05608, 0.159818)
+mesh = SubResource("SphereMesh_8leew")
+surface_material_override/0 = SubResource("StandardMaterial3D_npqhr")
+script = ExtResource("2_wj5fu")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(1024, 1024)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+transform = Transform3D(-0.99991, -0.0134037, 1.17178e-09, -0.0134037, 0.99991, -8.74149e-08, 7.10543e-15, -8.74228e-08, -1, 0.111803, 4.05608, 1.03024)
+fov = 118.31

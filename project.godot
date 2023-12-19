@@ -30,7 +30,7 @@ project/assembly_name="Project CSCI5619"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
+enabled=PackedStringArray("res://addons/csgtomeshinstance/plugin.cfg", "res://addons/godot-xr-tools/plugin.cfg")
 
 [xr]
 

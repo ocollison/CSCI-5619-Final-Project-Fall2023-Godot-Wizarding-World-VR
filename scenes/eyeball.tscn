@@ -1,0 +1,78 @@
+[gd_scene load_steps=18 format=3 uid="uid://b743rjkjt6501"]
+
+[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_v375j"]
+[ext_resource type="Texture2D" uid="uid://bvoe8h73yrv0e" path="res://textures/eye07.jpg" id="2_bqx1u"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/objects/highlight/highlight_ring.gd" id="2_qy6r2"]
+[ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="3_s70wq"]
+[ext_resource type="Script" path="res://scripts/eyespawner.gd" id="3_tqyg4"]
+[ext_resource type="PackedScene" uid="uid://bjfgw2ve8c1hn" path="res://scenes/eye.tscn" id="4_5cjvw"]
+[ext_resource type="Animation" uid="uid://wcwa3p1qrhwr" path="res://addons/godot-xr-tools/hands/animations/right/Rounded.res" id="4_rr8oe"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="5_1r0ey"]
+[ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="6_lnjdi"]
+[ext_resource type="Animation" uid="uid://cnng6xumhw7cx" path="res://addons/godot-xr-tools/hands/animations/left/Rounded.res" id="7_tbvxg"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_eabkb"]
+radius = 0.149297
+
+[sub_resource type="SphereMesh" id="SphereMesh_atd26"]
+radius = 0.125
+height = 0.25
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_57fec"]
+albedo_texture = ExtResource("2_bqx1u")
+
+[sub_resource type="SphereMesh" id="SphereMesh_rgj5l"]
+flip_faces = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_18gk7"]
+shading_mode = 0
+albedo_color = Color(1, 1, 0.0745098, 1)
+
+[sub_resource type="Resource" id="Resource_vj6g7"]
+script = ExtResource("5_1r0ey")
+closed_pose = ExtResource("4_rr8oe")
+
+[sub_resource type="Resource" id="Resource_w4dej"]
+script = ExtResource("5_1r0ey")
+closed_pose = ExtResource("7_tbvxg")
+
+[node name="eyeball" instance=ExtResource("1_v375j")]
+mass = 0.06
+gravity_scale = 1.6
+
+[node name="CollisionShape3D" parent="." index="0"]
+transform = Transform3D(0.436375, 0, 0, 0, 0.436375, 0, 0, 0, 0.436375, 0, 0, 0)
+shape = SubResource("SphereShape3D_eabkb")
+
+[node name="eyeball" type="MeshInstance3D" parent="." index="1"]
+transform = Transform3D(0.0363716, -0.437099, -0.012524, -0.353601, -0.0220061, -0.258878, 0.257253, 0.0315512, -0.354063, 0, 0, 0)
+mesh = SubResource("SphereMesh_atd26")
+surface_material_override/0 = SubResource("StandardMaterial3D_57fec")
+script = ExtResource("3_tqyg4")
+eye = ExtResource("4_5cjvw")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00688815, 2.38419e-07, -0.0037632)
+skeleton = NodePath("../CollisionShape3D")
+script = ExtResource("2_qy6r2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XRToolsHighlightRing" index="0"]
+transform = Transform3D(0.117575, 0, 0, 0, 0.117575, 0, 0, 0, 0.117575, -0.00688815, -2.38419e-07, 0.0037632)
+mesh = SubResource("SphereMesh_rgj5l")
+skeleton = NodePath("../../eyeball")
+surface_material_override/0 = SubResource("StandardMaterial3D_18gk7")
+
+[node name="GrabPointHandRight" parent="." index="3" instance=ExtResource("3_s70wq")]
+transform = Transform3D(0.999048, 0, 0.0436194, 0, 1, 0, -0.0436194, 0, 0.999048, 0.0160929, 0.0366646, -0.060452)
+hand_pose = SubResource("Resource_vj6g7")
+
+[node name="GrabPointHandLeft" parent="." index="4" instance=ExtResource("6_lnjdi")]
+transform = Transform3D(0.999048, 0, -0.0436194, 0, 1, 0, 0.0436194, 0, 0.999048, -0.00379801, 0.039153, -0.0684145)
+hand_pose = SubResource("Resource_w4dej")
+
+[node name="Timer" type="Timer" parent="." index="5"]
+wait_time = 0.9
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="eyeball" method="_on_timer_timeout"]

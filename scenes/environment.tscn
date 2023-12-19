@@ -1,0 +1,106 @@
+[gd_scene load_steps=14 format=3 uid="uid://cusyd8n5agfon"]
+
+[ext_resource type="PackedScene" uid="uid://ge57w7e0p5s5" path="res://resources/SM_Env_Road_Corner_01.fbx" id="1_1gndn"]
+[ext_resource type="PackedScene" uid="uid://bk34b8q7pyvyk" path="res://resources/SM_Bld_Stall_01.fbx" id="1_mr6wa"]
+[ext_resource type="PackedScene" uid="uid://lajbknjf3j2g" path="res://resources/SM_Env_Tree_02.fbx" id="2_5n8n5"]
+[ext_resource type="PackedScene" uid="uid://op2prjeftj55" path="res://resources/SM_Env_Road_Straight_01.fbx" id="2_u0405"]
+[ext_resource type="PackedScene" uid="uid://cl3nqwcaqjyym" path="res://resources/SM_Env_Tree_06.fbx" id="5_5i7p3"]
+[ext_resource type="PackedScene" uid="uid://0vt5d2b8dv0k" path="res://resources/SM_Prop_Cart_01.fbx" id="6_vp7wl"]
+[ext_resource type="PackedScene" uid="uid://d38ik3lnkk4l5" path="res://resources/SM_Env_Rock_011.fbx" id="7_u610q"]
+[ext_resource type="PackedScene" uid="uid://dc0vkr56thxln" path="res://resources/SM_Wep_GreatAxe_01.fbx" id="8_2xmgk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7f6y8"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="BoxMesh" id="BoxMesh_vquhj"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gb8p0"]
+albedo_color = Color(0.247059, 0.607843, 0.0431373, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2yuin"]
+size = Vector3(3, 1, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_56n0s"]
+
+[node name="environment" type="Node3D"]
+
+[node name="Root Scene16" parent="." instance=ExtResource("1_mr6wa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.787, 0.5, 4.877)
+
+[node name="Root Scene9" parent="." instance=ExtResource("2_5n8n5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.65247, 0.0290956, -6.36846)
+
+[node name="Terrain" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain"]
+shape = SubResource("BoxShape3D_7f6y8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain"]
+mesh = SubResource("BoxMesh_vquhj")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_gb8p0")
+
+[node name="Root Scene" parent="." instance=ExtResource("1_1gndn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+
+[node name="Root Scene2" parent="." instance=ExtResource("2_u0405")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0711536, 0.6, -5.84864)
+
+[node name="Root Scene3" parent="." instance=ExtResource("2_u0405")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -11.5114)
+
+[node name="Root Scene4" parent="." instance=ExtResource("2_u0405")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.8126, 0.6, -11.4739)
+
+[node name="Root Scene5" parent="." instance=ExtResource("2_u0405")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.762, 0.6, -5.75421)
+
+[node name="Root Scene6" parent="." instance=ExtResource("2_u0405")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5.89529, 0.6, 6.036)
+
+[node name="Root Scene7" parent="." instance=ExtResource("1_1gndn")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6.02135, 0.6, -17.4351)
+
+[node name="Root Scene8" parent="." instance=ExtResource("2_5n8n5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.24234, 0, 0)
+
+[node name="Root Scene10" parent="." instance=ExtResource("1_1gndn")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11.8168, 0.6, 6.08667)
+
+[node name="Root Scene11" parent="." instance=ExtResource("2_u0405")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5.78766, 0.6, -14.2909)
+
+[node name="Root Scene12" parent="." instance=ExtResource("1_1gndn")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 17.7461, 0.607088, -11.3247)
+
+[node name="Root Scene13" parent="." instance=ExtResource("5_5i7p3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.7877, 0, 7.65693)
+
+[node name="Root Scene14" parent="." instance=ExtResource("5_5i7p3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.3335, 0, 0)
+
+[node name="Root Scene15" parent="." instance=ExtResource("6_vp7wl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Cart" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.895, 1.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cart"]
+shape = SubResource("BoxShape3D_2yuin")
+
+[node name="Root Scene" parent="Cart" instance=ExtResource("6_vp7wl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="." groups=["interactable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.03843, 3.66005, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.259118, 0, 0)
+shape = SubResource("BoxShape3D_56n0s")
+
+[node name="Root Scene" parent="RigidBody3D" instance=ExtResource("7_u610q")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="Root Scene17" parent="." instance=ExtResource("8_2xmgk")]
+transform = Transform3D(-0.5, 0.5, -0.707107, -0.707107, -0.707107, 0, -0.5, 0.5, 0.707107, 5.542, 1.8, -2.17113)

@@ -72,6 +72,11 @@ layout_mode = 2
 
 [node name="Control" parent="MarginContainer/TabContainer/Voice" instance=ExtResource("2_rgxpi")]
 layout_mode = 1
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
 scale = Vector2(0.996993, 0.895765)
 
 [node name="Other" type="TabBar" parent="MarginContainer/TabContainer"]
@@ -115,5 +120,42 @@ position = Vector2(497, 200)
 
 [node name="Line2D" type="Line2D" parent="MarginContainer/TabContainer/Other/Polygon2D"]
 
+[node name="AllSeeingEye" type="TabBar" parent="MarginContainer/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Follow" type="Button" parent="MarginContainer/TabContainer/AllSeeingEye"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -238.0
+offset_bottom = 58.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 36
+text = "Follow player"
+
+[node name="Unfollow" type="Button" parent="MarginContainer/TabContainer/AllSeeingEye"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = -29.0
+offset_bottom = 29.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 36
+text = "Stop Following
+"
+
+[node name="Sprite2D" type="Sprite2D" parent="MarginContainer/TabContainer/AllSeeingEye"]
+position = Vector2(347, 265)
+scale = Vector2(0.6, 0.6)
+
 [connection signal="pressed" from="MarginContainer/TabContainer/Other/VBoxContainer/Clear" to="MarginContainer/TabContainer/Other" method="_on_clear_pressed"]
 [connection signal="pressed" from="MarginContainer/TabContainer/Other/VBoxContainer/Cast Spell" to="MarginContainer/TabContainer/Other" method="_on_cast_spell_pressed"]
+[connection signal="pressed" from="MarginContainer/TabContainer/AllSeeingEye/Follow" to="." method="_on_follow_pressed"]
+[connection signal="pressed" from="MarginContainer/TabContainer/AllSeeingEye/Unfollow" to="." method="_on_unfollow_pressed"]
