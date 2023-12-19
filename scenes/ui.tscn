@@ -45,27 +45,29 @@ theme_override_font_sizes/font_size = 72
 theme_override_styles/panel = SubResource("StyleBoxFlat_2rla5")
 theme_override_styles/tabbar_background = SubResource("StyleBoxFlat_e7jti")
 tab_alignment = 1
-current_tab = 2
 
 [node name="Spells" type="TabBar" parent="MarginContainer/TabContainer"]
-visible = false
 layout_mode = 2
 
-[node name="Button" type="Button" parent="MarginContainer/TabContainer/Spells"]
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/TabContainer/Spells"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -4.0
-offset_top = -4.0
-offset_right = 4.0
-offset_bottom = 4.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 72
-text = "The Spells Button"
+theme_override_font_sizes/normal_font_size = 24
+text = "Spells:
+
+Fire : Activated with \"fire \"| Gives you to Fire hand emitters | hold trigger buttons to use
+
+Ice: Activated with \"ice\" | Shoots an ice ball with collison } release trigger buttons to activate
+
+Grab: Activated with \"grab | Gives pointer to grab and manipulate size of objects
+
+Vision: Activated with \"vision\" | left trigger instances a Giant Eye; right trigger makes that eye look at a target
+
+Teleport: Activated with \"teleport\" | left trigger sets markers in world; right trigger instantiates visualizations of those markers that you can teleport to"
 
 [node name="Voice" type="TabBar" parent="MarginContainer/TabContainer"]
 visible = false
@@ -81,6 +83,7 @@ grow_vertical = 1
 scale = Vector2(0.996993, 0.895765)
 
 [node name="Arcane" type="TabBar" parent="MarginContainer/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="PaintRoot" parent="MarginContainer/TabContainer/Arcane" instance=ExtResource("3_10iwd")]
