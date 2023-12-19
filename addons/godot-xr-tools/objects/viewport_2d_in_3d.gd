@@ -119,10 +119,9 @@ var _dirty := _DIRTY_ALL
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	is_ready = true
-
 	# Listen for pointer events on the screen body
 	$StaticBody3D.connect("pointer_event", _on_pointer_event)
-
+	set_as_top_level(false)
 	# Apply physics properties
 	_update_screen_size()
 	_update_enabled()
@@ -221,6 +220,8 @@ func _input(event):
 
 # Process event
 func _process(delta):
+	global_rotation.z = 0  
+	global_rotation.x = 0  
 	# Process screen refreshing
 	if Engine.is_editor_hint():
 		# Perform periodic material refreshes to handle the user modifying the
@@ -522,6 +523,25 @@ func _on_left_controller_button_pressed(name):
 			%RightPointer.enabled = false
 			%LeftPointer.enabled = false
 		else:
+			#self.global_rotation.y = %XRCamera3D.global_rotation.y
+			#self.set_global_position(Vector3(%XRCamera3D.global_position.x, %XRCamera3D.global_position.y - 0.5, %XRCamera3D.global_position.z -1.4))
+			self.set_global_position(Vector3(global_position.x, %XRCamera3D.global_position.y - 0.5, global_position.z))
+			var cam_pos = %XRCamera3D.global_transform.origin
+			
+			var cam_basis = %XRCamera3D.global_transform.basis
+			self.global_transform.basis = cam_basis
+			
+			var cam_forward = cam_basis.z 
+			cam_forward = cam_forward.normalized()
+			
+			var spawn_pos = %XRCamera3D.global_transform.origin
+			spawn_pos -= cam_forward * 2
+			
+			self.global_transform.origin = spawn_pos
+			#self.global_rotate(Vector3(0, 1, 0), -180)
+			#self.look_at(%XRCamera3D.global_transform.origin)
+			self.set_global_rotation_degrees(Vector3(global_rotation_degrees.x, global_rotation_degrees.y, 0))
+			
 			self.visible = true
 			self.enabled = true
 			%LeftPointer.visible = true

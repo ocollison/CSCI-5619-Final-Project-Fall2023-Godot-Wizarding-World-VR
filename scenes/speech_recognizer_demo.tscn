@@ -113,5 +113,7 @@ offset_bottom = 431.0
 theme_override_font_sizes/font_size = 24
 text = "There Is No Such Spell..."
 
+[node name="SpellCue" type="AudioStreamPlayer" parent="."]
+
 [connection signal="OnFinalResult" from="SpeechRecognizer" to="." method="_on_speech_recognizer_on_final_result"]
 [connection signal="OnFinalResult" from="SpeechRecognizer" to="StateManager" method="_on_speech_recognizer_on_final_result"]

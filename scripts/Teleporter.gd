@@ -1,9 +1,9 @@
 extends Node3D
-@onready var player_collison = $"../RightController/RightHand/Collisions/Area3D"
+@onready var player_collison = get_node("/root/Main/XROrigin3D/RightController/RightHand/Collisions/Area3D")
 @onready var read_collison = false
-@onready var red = $"../../SpawnRed"
-@onready var blue = $"../../SpawnBlue"
-@onready var green = $"../../SpawnGreen"
+@onready var red = get_node("/root/Main/SpawnRed")
+@onready var blue = get_node("/root/Main/SpawnBlue")
+@onready var green = get_node("/root/Main/SpawnGreen")
 var color = null
 # Called when the node enters the scene tree for the first time.
 func _ready():

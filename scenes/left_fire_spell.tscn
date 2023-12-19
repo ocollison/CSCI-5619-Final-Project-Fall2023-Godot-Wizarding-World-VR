@@ -1,9 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://byg4v1g7vct56"]
+[gd_scene load_steps=16 format=3 uid="uid://h7s5c7uhko3s"]
 
-[ext_resource type="Texture2D" uid="uid://b7ldkyccpn27g" path="res://textures/fire_01.png" id="1_ln2hk"]
-[ext_resource type="Texture2D" uid="uid://b1atpiig47yv0" path="res://textures/smoke_04.png" id="2_rov6p"]
+[ext_resource type="Texture2D" uid="uid://b7ldkyccpn27g" path="res://textures/fire_01.png" id="2_f60y8"]
+[ext_resource type="Texture2D" uid="uid://b1atpiig47yv0" path="res://textures/smoke_04.png" id="3_vcewe"]
 
-[sub_resource type="GDScript" id="GDScript_0ijce"]
+[sub_resource type="GDScript" id="GDScript_5pvwo"]
 script/source = "extends Node3D
 
 
@@ -24,31 +24,30 @@ func _process(delta):
 	
 "
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1ymyx"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1gbgp"]
 blend_mode = 1
 shading_mode = 0
 vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("1_ln2hk")
+albedo_texture = ExtResource("2_f60y8")
 billboard_mode = 3
 particles_anim_h_frames = 1
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="Gradient" id="Gradient_uxqp2"]
-offsets = PackedFloat32Array(0, 0.97561)
+[sub_resource type="Gradient" id="Gradient_gt1yc"]
 colors = PackedColorArray(0.966206, 0.905584, 0, 1, 0.724453, 0.012473, 2.88785e-07, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_p1ulc"]
-gradient = SubResource("Gradient_uxqp2")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_gx5l0"]
+gradient = SubResource("Gradient_gt1yc")
 
-[sub_resource type="Curve" id="Curve_vytp8"]
+[sub_resource type="Curve" id="Curve_dasa4"]
 _data = [Vector2(0, 0.0315789), 0.0, 0.0, 0, 0, Vector2(0.350649, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_oaxvj"]
-curve = SubResource("Curve_vytp8")
+[sub_resource type="CurveTexture" id="CurveTexture_tcift"]
+curve = SubResource("Curve_dasa4")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_u5oca"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_eil16"]
 emission_shape = 1
 emission_sphere_radius = 0.2
 angle_max = 360.0
@@ -60,17 +59,17 @@ linear_accel_min = -4.0
 linear_accel_max = -2.0
 scale_min = 3.0
 scale_max = 3.0
-scale_curve = SubResource("CurveTexture_oaxvj")
-color_ramp = SubResource("GradientTexture1D_p1ulc")
+scale_curve = SubResource("CurveTexture_tcift")
+color_ramp = SubResource("GradientTexture1D_gx5l0")
 
-[sub_resource type="QuadMesh" id="QuadMesh_l6iwl"]
+[sub_resource type="QuadMesh" id="QuadMesh_gfo5o"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1jng8"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5ridg"]
 transparency = 1
 blend_mode = 1
 shading_mode = 0
 vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("2_rov6p")
+albedo_texture = ExtResource("3_vcewe")
 billboard_mode = 3
 particles_anim_h_frames = 1
 particles_anim_v_frames = 1
@@ -83,7 +82,7 @@ colors = PackedColorArray(0, 0, 0, 0, 0.520325, 0.520325, 0.520325, 1, 1, 1, 1, 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_mkc7a"]
 gradient = SubResource("Gradient_wnnsp")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wfgtd"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_iv6r2"]
 lifetime_randomness = 1.0
 emission_shape = 1
 emission_sphere_radius = 0.2
@@ -97,22 +96,22 @@ scale_min = 2.0
 scale_max = 2.0
 color_ramp = SubResource("GradientTexture1D_mkc7a")
 
-[sub_resource type="QuadMesh" id="QuadMesh_ndyqc"]
+[sub_resource type="QuadMesh" id="QuadMesh_a0kuh"]
 
 [node name="FireSpell" type="Node3D"]
-script = SubResource("GDScript_0ijce")
+script = SubResource("GDScript_5pvwo")
 
 [node name="Flames" type="GPUParticles3D" parent="."]
 rotation_edit_mode = 1
-material_override = SubResource("StandardMaterial3D_1ymyx")
+material_override = SubResource("StandardMaterial3D_1gbgp")
 emitting = false
 amount = 16
-process_material = SubResource("ParticleProcessMaterial_u5oca")
-draw_pass_1 = SubResource("QuadMesh_l6iwl")
+process_material = SubResource("ParticleProcessMaterial_eil16")
+draw_pass_1 = SubResource("QuadMesh_gfo5o")
 
 [node name="Smoke" type="GPUParticles3D" parent="."]
-material_override = SubResource("StandardMaterial3D_1jng8")
+material_override = SubResource("StandardMaterial3D_5ridg")
 emitting = false
 amount = 32
-process_material = SubResource("ParticleProcessMaterial_wfgtd")
-draw_pass_1 = SubResource("QuadMesh_ndyqc")
+process_material = SubResource("ParticleProcessMaterial_iv6r2")
+draw_pass_1 = SubResource("QuadMesh_a0kuh")

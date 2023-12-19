@@ -5,6 +5,7 @@ var spell = "normal"
 var num = 1
 @onready var error = $"../ErrorLabel"
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -38,8 +39,24 @@ func _on_speech_recognizer_on_final_result(finalResults):
 		if finalResults.find(word) != -1:
 			self.spell = word
 			set_spell(word)
+			spell_activation_cue(spell)
 			error.visible = false
 			return
 		
 	print("No special ability found in string")
 	error.visible = true
+	
+func spell_activation_cue(spell):
+	if spell == "fire":
+		var audio = load("res://audio/Fire.mp3")
+		$"../SpellCue".play()
+	if spell == "ice":
+		var audio = load("res://audio/Ice.mp3")
+		$"../SpellCue".play()
+	if spell == "teleport":
+		var audio = load("res://audio/Teleportation.mp3")
+		$"../SpellCue".play()
+	if spell == "shoot":
+		pass
+	if spell == "grab":
+		pass

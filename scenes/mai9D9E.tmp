@@ -359,7 +359,7 @@ projectile = ExtResource("11_nmst3")
 
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.768578, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54292, 0.462771)
 
 [node name="LeftController" type="XRController3D" parent="XROrigin3D"]
 tracker = &"left_hand"
@@ -475,6 +475,16 @@ unique_name_in_owner = true
 visible = false
 
 [node name="PlayerBody" parent="XROrigin3D" instance=ExtResource("6_rvgso")]
+
+[node name="Menu" parent="XROrigin3D" instance=ExtResource("10_nostw")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.879859, -1.89985)
+visible = false
+screen_size = Vector2(2.5, 1.5)
+enabled = false
+scene = ExtResource("9_ldcmq")
+viewport_size = Vector2(2048, 1024)
+input_keyboard = false
 
 [node name="PlayerCollision" type="Node3D" parent="XROrigin3D"]
 
@@ -609,20 +619,8 @@ size = Vector3(1.02295, 1.01466, 1.02814)
 [node name="PathFinder" type="Node" parent="."]
 script = ExtResource("26_24sa3")
 
-[node name="Menu" parent="." instance=ExtResource("10_nostw")]
-unique_name_in_owner = true
-transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 0, 0.754085, -1.68075)
-visible = false
-screen_size = Vector2(2.5, 1.5)
-enabled = false
-scene = ExtResource("9_ldcmq")
-viewport_size = Vector2(2048, 1024)
-input_keyboard = false
-
 [connection signal="button_pressed" from="XROrigin3D/LeftController" to="XROrigin3D/MagicHandler" method="_on_left_controller_button_pressed"]
-[connection signal="button_pressed" from="XROrigin3D/LeftController" to="PathFinder" method="_on_left_controller_button_pressed"]
-[connection signal="button_pressed" from="XROrigin3D/LeftController" to="Menu" method="_on_left_controller_button_pressed"]
+[connection signal="button_pressed" from="XROrigin3D/LeftController" to="XROrigin3D/Menu" method="_on_left_controller_button_pressed"]
 [connection signal="button_released" from="XROrigin3D/LeftController" to="XROrigin3D/MagicHandler" method="_on_left_controller_button_released"]
 [connection signal="button_pressed" from="XROrigin3D/RightController" to="XROrigin3D/MagicHandler" method="_on_right_controller_button_pressed"]
-[connection signal="button_pressed" from="XROrigin3D/RightController" to="PathFinder" method="_on_right_controller_button_pressed"]
 [connection signal="button_released" from="XROrigin3D/RightController" to="XROrigin3D/MagicHandler" method="_on_right_controller_button_released"]
