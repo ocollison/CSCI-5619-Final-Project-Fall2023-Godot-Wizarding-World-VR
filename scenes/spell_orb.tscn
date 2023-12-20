@@ -58,7 +58,6 @@ hand_pose = SubResource("Resource_mx71v")
 [node name="SubViewport" type="SubViewport" parent="." index="4"]
 
 [node name="XRToolsHighlightRing" type="MeshInstance3D" parent="." index="5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("2_xgthh")
 
 [node name="HighlightMesh" type="MeshInstance3D" parent="XRToolsHighlightRing" index="0"]

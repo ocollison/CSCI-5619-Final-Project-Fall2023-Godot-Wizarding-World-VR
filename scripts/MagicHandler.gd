@@ -17,6 +17,9 @@ extends Node3D
 @onready var left_fire = $"../LeftController/LeftHand/MagicEmission/LeftFireSpell/Flames"
 @onready var right_fire = $"../RightController/RightHand/MagicEmission/RightFireSpell/Flames"
 
+@onready var left_smoke = $"../LeftController/LeftHand/MagicEmission/LeftFireSpell/Smoke"
+@onready var right_smoke = $"../RightController/RightHand/MagicEmission/RightFireSpell/Smoke"
+
 @onready var menu =  %Menu
 
 @onready var main = $"../.."
@@ -55,6 +58,7 @@ func _process(delta):
 	left_particles.get_process_material().gravity = left_direction 
 	left_lightning_magic.get_process_material().gravity = left_direction 
 	left_fire.get_process_material().gravity = left_direction 
+	left_smoke.get_process_material().gravity = left_direction 
 #Right Controller tuning
 	var right_controller_basis = $"../RightController/RightHand".global_transform.basis
 	right_direction = -right_controller_basis.z
@@ -63,7 +67,8 @@ func _process(delta):
 	
 	right_particles.get_process_material().gravity = right_direction 
 	right_lightning_magic.get_process_material().gravity = right_direction 
-	right_fire.get_process_material().gravity = right_direction 
+	right_fire.get_process_material().gravity = right_direction
+	right_smoke.get_process_material().gravity = right_direction 
 	
 	#if draw == false:
 		#StateManager.drawing = false
